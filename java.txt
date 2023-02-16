@@ -1,0 +1,5 @@
+api client
+api compte
+spring intialize -> package ma.atos.BankManagement  -> BankManagement { lombook,spring cloud,spring web, spring data , sql)
+(2.7.1)
+compte agence operation sitex
