@@ -1,4 +1,10 @@
 package ma.atos.ma.atos.bankmanagement.entities;
 
-public class Tier {
+import java.util.Date;
+public  abstract class Tier {
+     private Long idClient;
+    private String nationalite;
+    private Date dateSouscription ;
+    private String adresse;
+
 }
