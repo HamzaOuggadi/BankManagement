@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import ma.atos.ma.atos.bankmanagement.enums.TypeCompte;
 
 import java.util.Date;
+// POJO
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
