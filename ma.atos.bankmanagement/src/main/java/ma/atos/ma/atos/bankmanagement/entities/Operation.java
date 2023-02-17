@@ -9,8 +9,8 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public abstract class Operation {
-    private Long idOperation;
-    private double montant;
-    private String description;
-    private Date dateOperation;
+    protected Long idOperation;
+    protected double montant;
+    protected String description;
+    protected Date dateOperation;
 }
