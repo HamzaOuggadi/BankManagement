@@ -1,5 +1,5 @@
 package ma.atos.ma.atos.bankmanagement.Dtos;
 
-public class Restriction {
+public class RestrictionDto {
     private String etat;
 }

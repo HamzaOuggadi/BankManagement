@@ -8,8 +8,8 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public  abstract class Tier {
-     protected Long idClient;
+public  abstract class TierDto {
+
     protected String nationalite;
     protected Date dateSouscription ;
     protected String adresse;

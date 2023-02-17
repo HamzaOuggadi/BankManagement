@@ -10,7 +10,8 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Compte { private Long idCompte;
+public class CompteDto {
+
     private Long ribCompte;
     private TypeCompte typeCompte;
     private double balance;
