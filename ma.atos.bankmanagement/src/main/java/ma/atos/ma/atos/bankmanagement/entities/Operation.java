@@ -18,7 +18,7 @@ import java.util.Date;
 
 public abstract class Operation {
     @Column(name = "idOperation")
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long idOperation;
     @Column(name = "montant")
     protected double montant;

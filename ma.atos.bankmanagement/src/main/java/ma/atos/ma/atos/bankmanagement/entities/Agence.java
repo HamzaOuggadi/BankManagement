@@ -13,7 +13,7 @@ import javax.persistence.*;
 public class Agence {
 
     @Column(name = "idAgence")
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAgence;
     private String codeAgence;
     @Column(name = "nomAgence")

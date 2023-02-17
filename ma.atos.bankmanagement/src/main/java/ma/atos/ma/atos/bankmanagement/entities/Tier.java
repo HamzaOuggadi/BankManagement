@@ -13,7 +13,7 @@ import java.util.Date;
 
 public  abstract class Tier {
     @Column(name = "idClient")
-    @Id
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long idClient;
     @Column(name = "nationalite")
     protected String nationalite;
