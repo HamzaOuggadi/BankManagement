@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Agence {
-
-    private Long idAgence;
-    private String nomAgence;
-    private String adressAgence;
+public class Gestionnaire {
+    private Long idGestionnaire ;
+    private String numGestionnaire;
 
 }
