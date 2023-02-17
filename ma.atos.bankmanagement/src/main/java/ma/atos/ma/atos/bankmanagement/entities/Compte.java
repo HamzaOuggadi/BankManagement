@@ -17,4 +17,6 @@ public class Compte {
     private double balance;
     private Date dateCreation;
     private String devise;
+
+    //typeCompte
 }
