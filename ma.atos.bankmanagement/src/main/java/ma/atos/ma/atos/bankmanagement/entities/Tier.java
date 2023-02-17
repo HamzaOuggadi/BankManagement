@@ -9,9 +9,9 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public  abstract class Tier {
-     private Long idClient;
-    private String nationalite;
-    private Date dateSouscription ;
-    private String adresse;
+     protected Long idClient;
+    protected String nationalite;
+    protected Date dateSouscription ;
+    protected String adresse;
 
 }
