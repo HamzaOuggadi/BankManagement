@@ -18,5 +18,4 @@ public class Compte {
     private Date dateCreation;
     private String devise;
 
-    //typeCompte
 }
