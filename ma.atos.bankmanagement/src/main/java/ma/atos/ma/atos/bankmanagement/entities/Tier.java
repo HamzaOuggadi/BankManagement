@@ -8,8 +8,7 @@ import javax.persistence.*;
 import java.util.Date;
 @Data
 @Entity
-@Table(name = "Tier", uniqueConstraints =
-        {@UniqueConstraint( columnNames = {"idClient"})})
+@Table(name = "Tier")
 
 public  abstract class Tier {
     @Column(name = "idClient")

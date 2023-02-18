@@ -15,6 +15,7 @@ public class Agence {
     @Column(name = "idAgence")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idAgence;
+    @Column(name = "codeAgence")
     private String codeAgence;
     @Column(name = "nomAgence")
     private String nomAgence;
