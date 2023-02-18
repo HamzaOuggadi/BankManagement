@@ -1,15 +1,10 @@
 package ma.atos.ma.atos.bankmanagement.entities;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.util.Date;
 @Data
 @Entity
-@Table(name = "Tier", uniqueConstraints =
-        {@UniqueConstraint( columnNames = {"idClient"})})
+@Table(name = "Tier")
 
 public  abstract class Tier {
     @Column(name = "idClient")
