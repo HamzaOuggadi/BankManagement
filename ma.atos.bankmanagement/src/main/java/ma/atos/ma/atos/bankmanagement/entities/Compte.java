@@ -1,8 +1,5 @@
 package ma.atos.ma.atos.bankmanagement.entities;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import ma.atos.ma.atos.bankmanagement.enums.TypeCompte;
 
 import javax.persistence.*;
