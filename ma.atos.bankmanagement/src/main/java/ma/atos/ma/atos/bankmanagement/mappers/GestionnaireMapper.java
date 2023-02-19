@@ -12,4 +12,5 @@ public interface GestionnaireMapper {
 
     GestionnaireDto gestionnaireToGestionnaireDto(Gestionnaire gestionnaire);
 
+    Gestionnaire gestionnaireDtoToGestionnaire(GestionnaireDto gestionnaireDto);
 }

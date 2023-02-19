@@ -11,4 +11,7 @@ import org.mapstruct.Mapper;
 public interface RestrictionMapper {
 
     RestrictionDto restrictionToRestrictionDto(Restriction restriction);
+
+    Restriction restrictionDtoToRestriction(RestrictionDto restrictionDto);
+
 }

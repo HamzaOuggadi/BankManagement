@@ -11,6 +11,8 @@ public interface CompteMapper {
 
     CompteDto compteToCompteDto(Compte compte);
 
+    Compte compteDtoToCompte(CompteDto compteDto);
+
 
 }
 

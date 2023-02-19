@@ -11,4 +11,6 @@ public interface AgenceMapper {
 //        @Mapping(source = "inEntity", target = "inDTO")
         AgenceDto agenceToAgenceDto(Agence agence);
 
+        Agence agenceDtoToAgence(AgenceDto agenceDto);
+
 }
