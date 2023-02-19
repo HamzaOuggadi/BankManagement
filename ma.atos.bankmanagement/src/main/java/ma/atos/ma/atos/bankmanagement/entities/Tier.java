@@ -4,17 +4,13 @@ import javax.persistence.*;
 import java.util.Date;
 @Data
 @Entity
-@Table(name = "Tier")
-
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "TIER_TYPE")
 public abstract class Tier {
-    @Column(name = "idClient")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long idClient;
-    @Column(name = "nationalite")
     protected String nationalite;
-    @Column(name = "dateSouscription")
-    protected Date dateSouscription ;
-    @Column(name = "adresse")
+    protected Date dateSouscription;
     protected String adresse;
 
 }

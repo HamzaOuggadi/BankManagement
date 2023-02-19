@@ -1,16 +1,13 @@
 package ma.atos.ma.atos.bankmanagement.entities;
 import lombok.Data;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
+import javax.persistence.*;
 import java.util.Date;
 @Data
 @Entity
 @Table(name = "PersonnePhysique" ,
         uniqueConstraints =
-        {@UniqueConstraint( columnNames = {"numTel","email"})}
-)
+        {@UniqueConstraint( columnNames = {"numTel","email"})})
+@DiscriminatorValue("PP")
 public class PersonnePhysique extends Tier{
     @Column(name = "nomComplet")
     private String nomComplet ;

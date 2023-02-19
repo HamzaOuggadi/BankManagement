@@ -10,5 +10,5 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface TierMapper {
 
-    TierDto tierToTierDto(Tier tier);
+//    TierDto tierToTierDto(Tier tier);
 }
