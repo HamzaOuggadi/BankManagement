@@ -6,8 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.util.Date;
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "PersonnePhysique" ,
         uniqueConstraints =

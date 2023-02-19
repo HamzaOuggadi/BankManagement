@@ -7,8 +7,6 @@ import javax.persistence.*;
 
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "PersonneMorale", uniqueConstraints =
         {@UniqueConstraint( columnNames = {"numRegisterCom"})})
