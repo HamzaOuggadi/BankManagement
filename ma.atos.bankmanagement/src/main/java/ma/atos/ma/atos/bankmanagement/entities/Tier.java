@@ -6,7 +6,7 @@ import java.util.Date;
 @Entity
 @Table(name = "Tier")
 
-public  abstract class Tier {
+public abstract class Tier {
     @Column(name = "idClient")
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long idClient;
