@@ -1,49 +1,60 @@
 package ma.atos.ma.atos.bankmanagement.services;
 
+import ma.atos.ma.atos.bankmanagement.Dtos.PersonneMoraleDto;
+import ma.atos.ma.atos.bankmanagement.Dtos.PersonnePhysiqueDto;
 import ma.atos.ma.atos.bankmanagement.entities.PersonneMorale;
-import ma.atos.ma.atos.bankmanagement.entities.PersonnePhysique;
-import ma.atos.ma.atos.bankmanagement.entities.Tier;
+import ma.atos.ma.atos.bankmanagement.mappers.PersonneMoraleMapper;
+import ma.atos.ma.atos.bankmanagement.mappers.PersonnePhysiqueMapper;
+import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
 import java.util.List;
 @Service
 @Transactional
+
 public class TierServiceImpl implements TierService {
+    @Autowired
+    PersonnePhysiqueMapper personnePhysiqueMapper;
+
+@Autowired
+    PersonneMoraleMapper personneMoraleMapper;
+    @Autowired
+    TierRepository tierRepository;
 
 
     @Override
-    public List<PersonnePhysique> getAllPersonne() {
-
+    public List<PersonnePhysiqueDto> getAllPersonne() {
         return null;
     }
 
     @Override
-    public List<PersonneMorale> getAllPersonneMorale() {
+    public List<PersonneMoraleDto> getAllPersonneMorale() {
         return null;
     }
 
     @Override
-    public PersonnePhysique getPersonnePhysique(long id) {
+    public PersonnePhysiqueDto getPersonnePhysique(long id) {
         return null;
     }
 
     @Override
-    public PersonneMorale getPersonneMorale(long id) {
+    public PersonneMoraleDto getPersonneMorale(long id) {
         return null;
     }
 
     @Override
-    public PersonneMorale creatPersonneMorale(String raionSociale, String numRegisterComm, String numClient, String nationalite, Date dateSouscription, String adress) {
-        PersonneMorale personneMorale=PersonneMoraleRepository.save(personneMorale);
-
-
-        return personneMorale;
+    public PersonneMorale creatPersonneMorale(PersonneMoraleDto personneMoraleDto) {
+        PersonneMorale personneMorale = personneMoraleMapper.PmDtoToPm(personneMoraleDto);
+        return tierRepository.save(personneMorale);
     }
 
-    @Override
-    public void creatPersonnePhysique(Long idClient, String numClient, String nationalite, Date dateSouscription, String adresse, String nomCompet, Date dateNaissance, String typeIdentification, String numTel, String email) {
+
+
+        @Override
+    public PersonnePhysiqueDto creatPersonnePhysique(PersonnePhysiqueDto personnePhysiqueDto) {
+        return tierRepository.save(personnePhysiqueDto);
 
     }
 
