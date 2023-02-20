@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 
 public interface RestrictionRepository extends JpaRepository<Restriction, Long> {
+
 }
