@@ -11,7 +11,6 @@ import java.util.List;
 @Entity
 @Table(name = "Compte", uniqueConstraints =
         {@UniqueConstraint( columnNames = {"ribCompte"})})
-
 public class Compte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
