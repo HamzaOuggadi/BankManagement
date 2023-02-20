@@ -8,7 +8,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonnePhysiqueDto extends TierDto {
+public class PersonnePhysiqueDto   {
     private String nomCompet ;
     private Date dateNaissance;
     private String typeIdentification;
