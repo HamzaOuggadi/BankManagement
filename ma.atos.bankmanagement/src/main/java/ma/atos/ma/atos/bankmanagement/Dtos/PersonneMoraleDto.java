@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PersonneMoraleDto extends TierDto {
+public class PersonneMoraleDto  {
 
     private String raionSociale;
     private String numRegisterComm;
