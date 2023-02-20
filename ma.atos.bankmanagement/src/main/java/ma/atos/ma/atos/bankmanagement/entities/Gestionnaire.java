@@ -1,19 +1,19 @@
 package ma.atos.ma.atos.bankmanagement.entities;
 import lombok.Data;
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
-@Table(
-        name = "Gestionnaire",uniqueConstraints =
-        {@UniqueConstraint( columnNames = {"numGestionnaire"})}
+@Table(name = "Gestionnaire",uniqueConstraints =
+        {@UniqueConstraint( columnNames = {"matricule"})}
 )
 public class Gestionnaire {
-    @Column(name = "idGestionnaire")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idGestionnaire ;
-    @Column(name = "numGestionnaire")
-    private String numGestionnaire;
-
+    private Long id;
+    private String matricule;
+    private String nom;
+    @OneToMany
+    private List<Compte> comptes;
 }

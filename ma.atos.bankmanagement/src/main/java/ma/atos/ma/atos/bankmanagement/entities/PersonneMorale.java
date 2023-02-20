@@ -10,9 +10,7 @@ import javax.persistence.*;
 @DiscriminatorValue("PM")
 public class PersonneMorale extends Tier{
 
-    @Column(name = "raionSociale")
     private String raionSociale;
-    @Column(name = "numRegisterCom")
     private String numRegisterComm;
 
 }
