@@ -9,11 +9,8 @@ import java.util.Date;
 public abstract class Tier {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long idClient;
-    @Column(name = "nationalite")
     protected String nationalite;
-    @Column(name= "dateSouscription")
     protected Date dateSouscription;
-    @Column(name = "adresse")
     protected String adresse;
 
 }
