@@ -39,6 +39,7 @@ public class RestrictionServiceImpl implements RestrictionService {
         restrictionRepo.save(restriction) ;
     }
     @Override
+
     public void deleteRestriction(Long idRestriction) throws RestrictionException {
         if (restrictionRepo.findById(idRestriction)== null){
             throw new RestrictionException("Restriction already deleted");
