@@ -23,9 +23,11 @@ public class RestrictionService implements RestrictionServiceInterface {
     public Restriction getRestricionById(Long idRestriction){
         return restrictionRepo.findById(idRestriction).get();
     }
+    @Override
     public Restriction createRestriction( Restriction restriction) {
         return restrictionRepo.save(restriction) ;
     }
+    @Override
     public void deleteRestriction(Long idRestriction){
         restrictionRepo.deleteById(idRestriction);
     }
