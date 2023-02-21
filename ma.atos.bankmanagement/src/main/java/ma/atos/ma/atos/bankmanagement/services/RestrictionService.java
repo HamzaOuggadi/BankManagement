@@ -1,39 +1,12 @@
 package ma.atos.ma.atos.bankmanagement.services;
 
 import ma.atos.ma.atos.bankmanagement.entities.Restriction;
-import ma.atos.ma.atos.bankmanagement.repositories.RestrictionRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
-@Service
-public class RestrictionService implements RestrictionServiceInterface {
-    @Autowired
-    RestrictionRepository restrictionRepo;
-
-    @Override
-    public List<Restriction> getResctriction() {
-        List<Restriction> Restriction = new ArrayList<>();
-        restrictionRepo.findAll().forEach(Restriction::add);;
-        return Restriction;
-    }
-    @Override
-    public Restriction getRestricionById(Long idRestriction){
-        return restrictionRepo.findById(idRestriction).get();
-    }
-    @Override
-    public Restriction createRestriction( Restriction restriction) {
-        return restrictionRepo.save(restriction) ;
-    }
-    @Override
-    public void deleteRestriction(Long idRestriction){
-        restrictionRepo.deleteById(idRestriction);
-    }
+public interface RestrictionService {
+    List<Restriction> getResctriction();
+    Restriction getRestricionById(Long idRestriction);
+    Restriction createRestriction( Restriction restriction);
+    void deleteRestriction(Long idRestriction);
 }
-
-
-
-
-
