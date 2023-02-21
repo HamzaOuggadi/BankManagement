@@ -23,6 +23,7 @@ public class OperationDto {
         private SensOperation sensOperation;
         private String typeOperation;
         private Compte compte;
+        private String typeOperation;
     }
 
 

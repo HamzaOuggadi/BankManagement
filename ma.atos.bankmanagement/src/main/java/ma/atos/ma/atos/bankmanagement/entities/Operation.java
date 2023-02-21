@@ -19,4 +19,6 @@ public class Operation {
     protected SensOperation sensOperation;
     @ManyToOne
     private Compte compte;
+    @Column(name = "TYPE_OPERATION", insertable = false,updatable = false)
+    private String typeOperation;
 }
