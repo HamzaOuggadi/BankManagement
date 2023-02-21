@@ -9,7 +9,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public  abstract class TierDto {
-
     protected String nationalite;
     protected Date dateSouscription ;
     protected String adresse;

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 @Repository
 public interface TierRepository extends JpaRepository<Tier, Long> {
+    Tier findByNumClient(String numClient);
 
 }
 
