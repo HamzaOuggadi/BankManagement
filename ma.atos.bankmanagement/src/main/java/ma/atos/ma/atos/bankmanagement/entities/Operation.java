@@ -1,7 +1,6 @@
 package ma.atos.ma.atos.bankmanagement.entities;
 import lombok.Data;
 import ma.atos.ma.atos.bankmanagement.enums.SensOperation;
-
 import javax.persistence.*;
 import java.util.Date;
 @Data

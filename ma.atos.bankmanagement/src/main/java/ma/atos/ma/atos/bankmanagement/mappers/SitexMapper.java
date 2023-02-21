@@ -10,6 +10,8 @@ import org.mapstruct.Mapper;
 @Mapper
 public interface SitexMapper {
 
+    SitexDto operationToOperationDto(Operation operation);
+
     SitexDto sitexToSitexDto(Sitex sitex);
 
     Sitex sitexDtoToSitex(SitexDto sitexDto);
