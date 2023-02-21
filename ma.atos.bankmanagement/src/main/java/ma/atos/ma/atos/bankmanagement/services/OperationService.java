@@ -18,4 +18,8 @@ public interface OperationService {
     //Get Operation by Id
     OperationDto getOperationById(Long id);
 
+    //Get Operation by Type Operation
+    List<OperationDto> getOperationsByTypeOperation(String typeOperation);
+
+
 }

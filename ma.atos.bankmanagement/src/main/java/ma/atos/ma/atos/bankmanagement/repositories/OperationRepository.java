@@ -10,4 +10,6 @@ import java.util.List;
 @Repository
 public interface OperationRepository extends JpaRepository<Operation, Long> {
     List<Operation> findByCompte_IdCompte(Long idCompte);
+
+    List<Operation> findByTypeOperation(String depot);
 }

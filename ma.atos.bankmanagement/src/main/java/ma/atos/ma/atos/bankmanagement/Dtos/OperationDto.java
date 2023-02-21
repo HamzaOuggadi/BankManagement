@@ -21,6 +21,7 @@ public class OperationDto {
         private String description;
         private Date dateOperation;
         private SensOperation sensOperation;
+        private String typeOperation;
         private Compte compte;
     }
 

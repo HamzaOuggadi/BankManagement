@@ -7,12 +7,14 @@ import java.util.Date;
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TYPE_OPERATION")
-public abstract class Operation {
+public class Operation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long idOperation;
     protected double montant;
     protected String description;
     protected Date dateOperation;
+
+    protected String typeOperation;
     @Enumerated(EnumType.STRING)
     protected SensOperation sensOperation;
     @ManyToOne

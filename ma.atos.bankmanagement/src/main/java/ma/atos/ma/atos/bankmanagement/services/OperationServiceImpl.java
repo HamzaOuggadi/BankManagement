@@ -1,6 +1,5 @@
 package ma.atos.ma.atos.bankmanagement.services;
 
-import ma.atos.ma.atos.bankmanagement.Dtos.DepotDto;
 import ma.atos.ma.atos.bankmanagement.Dtos.OperationDto;
 import ma.atos.ma.atos.bankmanagement.entities.Operation;
 import ma.atos.ma.atos.bankmanagement.mappers.OperationMapper;
@@ -20,11 +19,8 @@ public class OperationServiceImpl implements OperationService{
         @Autowired
         private OperationMapper operationMapper;
 
-        @Override
+    @Override
         public List<OperationDto> getAllOperations() {
-
-//            List<Operation> operations = operationRepository.findAll();
-//            return operationMapper.toDtoList(operations);
 
                 List<Operation> operations = operationRepository.findAll();
                 List<OperationDto> operationDtos = new ArrayList<>();
@@ -57,6 +53,25 @@ public class OperationServiceImpl implements OperationService{
             Operation operation = operationRepository.findById(id).get();
             return operationMapper.toDto(operation);
         }
+
+    @Override
+    public List<OperationDto> getOperationsByTypeOperation(String typeOperation) {
+
+        if(typeOperation.equals("depot")){
+            List<Operation> operations = operationRepository.findByTypeOperation("depot");
+            return operations.stream()
+                    .map(operationMapper::toDto)
+                    .collect(Collectors.toList());
+        }
+        else if(typeOperation.equals("virement")){
+            List<Operation> operations = operationRepository.findByTypeOperation("virement");
+            return operations.stream()
+                    .map(operationMapper::toDto)
+                    .collect(Collectors.toList());
+        }
+        else
+            return null;
+    }
 
 
 }
