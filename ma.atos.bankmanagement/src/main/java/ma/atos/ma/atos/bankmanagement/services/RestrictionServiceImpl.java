@@ -16,7 +16,7 @@ public class RestrictionServiceImpl implements RestrictionService {
     @Override
     public List<Restriction> getResctriction() {
         List<Restriction> Restriction = new ArrayList<>();
-        restrictionRepo.findAll().forEach(Restriction::add);;
+        restrictionRepo.findAll().forEach(Restriction::add);
         return Restriction;
     }
     @Override
