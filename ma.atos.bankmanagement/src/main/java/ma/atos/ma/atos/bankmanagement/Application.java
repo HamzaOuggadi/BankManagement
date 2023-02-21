@@ -3,8 +3,8 @@ package ma.atos.ma.atos.bankmanagement;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootAp
-plication
+@SpringBootApplication
+
 public class Application {
 
 	public static void main(String[] args) {
