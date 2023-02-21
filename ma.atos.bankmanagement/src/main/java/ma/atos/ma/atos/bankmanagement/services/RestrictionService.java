@@ -7,6 +7,7 @@ import ma.atos.ma.atos.bankmanagement.exceptions.RestrictionException;
 import java.util.List;
 
 public interface RestrictionService {
+
     List<RestrictionDto> getResctriction();
     Restriction getRestricionById(Long idRestriction);
     void createRestriction( RestrictionDto restrictionDto);
