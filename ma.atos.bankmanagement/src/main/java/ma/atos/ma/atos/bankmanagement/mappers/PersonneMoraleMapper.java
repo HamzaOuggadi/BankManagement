@@ -8,6 +8,8 @@ import org.springframework.stereotype.Component;
 @Component
 public interface PersonneMoraleMapper {
 
+    PersonneMoraleDto personneToPersonneDto(PersonneMoraleMapper personne);
+
     PersonneMoraleDto personneToPersonneDto(PersonneMorale personneMorale);
     PersonneMorale PmDtoToPm(PersonneMoraleDto personneMoraleDto);
 }
