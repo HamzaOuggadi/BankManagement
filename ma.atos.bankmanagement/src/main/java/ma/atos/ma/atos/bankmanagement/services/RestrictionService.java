@@ -12,4 +12,5 @@ public interface RestrictionService {
     Restriction getRestricionById(Long idRestriction);
     void createRestriction( RestrictionDto restrictionDto);
     void deleteRestriction(Long idRestriction) throws RestrictionException ;
+
 }
