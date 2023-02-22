@@ -2,6 +2,9 @@ package ma.atos.ma.atos.bankmanagement.exceptions;
 
 import org.springframework.http.HttpStatus;
 
+
+//Handle exception when operation not found
+
 public class OperationNotFoundException extends RuntimeException{
 
     private String message;
