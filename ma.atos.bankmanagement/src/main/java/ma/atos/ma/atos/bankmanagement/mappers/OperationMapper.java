@@ -10,8 +10,6 @@ import org.springframework.stereotype.Component;
 @Component
 public interface OperationMapper
 {
-    OperationMapper INSTANCE = Mappers.getMapper( OperationMapper.class );
-
     public Operation toEntity(OperationDto operationDto);
 
 
