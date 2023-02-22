@@ -13,10 +13,12 @@ public class Operation {
     protected double montant;
     protected String description;
     protected Date dateOperation;
+
     @Enumerated(EnumType.STRING)
     protected SensOperation sensOperation;
     @ManyToOne
     private Compte compte;
-    @Column(name = "TYPE_OPERATION", insertable = false,updatable = false)
+    @Column(name = "TYPE_OPERATION", updatable = false)
     private String typeOperation;
+
 }

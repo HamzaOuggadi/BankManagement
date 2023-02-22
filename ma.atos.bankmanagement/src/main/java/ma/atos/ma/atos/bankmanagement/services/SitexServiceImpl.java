@@ -1,5 +1,6 @@
 package ma.atos.ma.atos.bankmanagement.services;
 
+import lombok.AllArgsConstructor;
 import ma.atos.ma.atos.bankmanagement.Dtos.SitexDto;
 import ma.atos.ma.atos.bankmanagement.entities.Sitex;
 import ma.atos.ma.atos.bankmanagement.exceptions.SitexExeption;
@@ -15,6 +16,7 @@ import java.util.List;
 
 @Transactional
 @Service
+@AllArgsConstructor
 public class SitexServiceImpl implements SitexService{
 
     @Autowired
@@ -39,7 +41,7 @@ public class SitexServiceImpl implements SitexService{
 
     @Override
     public SitexDto getSitex(Long idSitex) {
-        Sitex sitex = sitexRepository.findById(idSitex).get();
+        Sitex sitex = sitexRepository.findSitexByIdSitex(idSitex);
         SitexDto sitexDto = sitexMapper.sitexToSitexDto(sitex);
         return  sitexDto;
     }
@@ -55,7 +57,7 @@ public class SitexServiceImpl implements SitexService{
     @Override
     public void deleteSitex(Long idSitex) throws SitexExeption{
 
-        if(!sitexRepository.findById(idSitex).isPresent()){
+        if(sitexRepository.findSitexByIdSitex(idSitex) == null){
             throw new SitexExeption("Sitex not found");
         }
         else{

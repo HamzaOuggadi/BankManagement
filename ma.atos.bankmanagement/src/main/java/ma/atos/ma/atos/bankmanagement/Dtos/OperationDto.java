@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import ma.atos.ma.atos.bankmanagement.entities.Compte;
 import ma.atos.ma.atos.bankmanagement.enums.SensOperation;
-
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
@@ -21,8 +20,9 @@ public class OperationDto {
         private String description;
         private Date dateOperation;
         private SensOperation sensOperation;
-        private Compte compte;
         private String typeOperation;
+        private Long ribCompte;
+
     }
 
 
