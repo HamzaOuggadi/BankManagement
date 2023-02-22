@@ -46,6 +46,13 @@ public class CompteServiceImpl implements CompteService {
         CompteDto compteDto = compteMapper.compteToCompteDto(compte);
         return compteDto;
     }
+
+    /**
+     *
+     * @param numClient
+     * @return
+     * @throws CompteException
+     */
     @Override
     public List<CompteDto> getCompteByTier(String numClient) throws CompteException {
         Tier tier = tierRepository.findByNumClient(numClient);
