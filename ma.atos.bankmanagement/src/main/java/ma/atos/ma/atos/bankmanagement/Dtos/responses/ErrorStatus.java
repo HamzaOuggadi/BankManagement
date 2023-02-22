@@ -1,5 +1,7 @@
 package ma.atos.ma.atos.bankmanagement.Dtos.responses;
 
+
+// Enum for error status
 public enum ErrorStatus {
     TECHNICAL_ERROR(500, "Technical error"),
     BAD_REQUEST(400, "Bad request"),
