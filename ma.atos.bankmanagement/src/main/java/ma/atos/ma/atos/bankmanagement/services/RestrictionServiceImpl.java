@@ -17,7 +17,6 @@ import java.util.Optional;
 @AllArgsConstructor
 public class RestrictionServiceImpl implements RestrictionService {
     RestrictionRepository restrictionRepo;
-
     RestrictionMapper restrictionMapper;
 
     @Override
