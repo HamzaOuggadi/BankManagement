@@ -1,17 +1,22 @@
 package ma.atos.ma.atos.bankmanagement.services;
 import ma.atos.ma.atos.bankmanagement.Dtos.PersonneMoraleDto;
+import ma.atos.ma.atos.bankmanagement.config.MessageConfiguration;
 import ma.atos.ma.atos.bankmanagement.entities.PersonneMorale;
 import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.PersonneMoraleMapper;
 import ma.atos.ma.atos.bankmanagement.mappers.PersonnePhysiqueMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Service
 public class TierServiceImpl implements TierService {
+    @Autowired
+    MessageSource messageSource;
 @Autowired
       PersonneMoraleMapper personneMoraleMapper;
 @Autowired
@@ -38,7 +43,7 @@ public class TierServiceImpl implements TierService {
     @Override
     public PersonneMoraleDto getPersonneMorale(Long id) throws TierNotFoundExeption {
         PersonneMorale personneMorale = (PersonneMorale) tierRepository.findById(id).orElseThrow(() ->
-                new TierNotFoundExeption("TierNotFoundExeptio"));
+                new TierNotFoundExeption(messageSource.getMessage("Tier Not Found Exeption",new Object[]{}, Locale.getDefault())));
         return personneMoraleMapper.personneToPersonneDto(personneMorale);
     }
     @Override

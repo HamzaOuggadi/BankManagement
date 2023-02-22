@@ -7,7 +7,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Bean;
-
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.stream.Stream;
@@ -22,7 +21,7 @@ public class Application {
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
-	@Bean
+	/*@Bean
 	CommandLineRunner start(CompteServiceImpl compteService,
 							CompteRepository compteRepository) {
 		return args -> {
@@ -56,12 +55,12 @@ public class Application {
 
 
 };}*/
-	@Bean
+	/*@Bean
 	CommandLineRunner start(TierRepository tierRepository) {
 		return args -> {
 			tierService.getAllPersonneMorale();
 			tierService.getPersonneMorale(Long.valueOf(1));
 			tierService.deletPersonneMorale(1);
 
-		};}
+		};}*/
 }
