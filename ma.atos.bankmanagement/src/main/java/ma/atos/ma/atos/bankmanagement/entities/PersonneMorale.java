@@ -13,4 +13,19 @@ public class PersonneMorale extends Tier{
     private String raionSociale;
     private String numRegisterComm;
 
+    public void setRaionSociale(String raionSociale) {
+        this.raionSociale = raionSociale;
+    }
+
+    public void setNumRegisterComm(String numRegisterComm) {
+        this.numRegisterComm = numRegisterComm;
+    }
+
+    public String getRaionSociale() {
+        return raionSociale;
+    }
+
+    public String getNumRegisterComm() {
+        return numRegisterComm;
+    }
 }

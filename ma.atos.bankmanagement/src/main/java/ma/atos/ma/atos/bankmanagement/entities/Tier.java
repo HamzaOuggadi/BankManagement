@@ -22,4 +22,38 @@ public abstract class Tier {
     @OneToMany
     protected List<Restriction> restrictions;
 
+    @Column(name = "TIER_TYPE", insertable = false ,updatable = false)
+    protected String tierType;
+
+    public void setIdClient(Long idClient) {
+        this.idClient = idClient;
+    }
+
+    public void setNumClient(String numClient) {
+        this.numClient = numClient;
+    }
+
+    public void setNationalite(String nationalite) {
+        this.nationalite = nationalite;
+    }
+
+    public void setDateSouscription(Date dateSouscription) {
+        this.dateSouscription = dateSouscription;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public void setComptes(List<Compte> comptes) {
+        this.comptes = comptes;
+    }
+
+    public void setRestrictions(List<Restriction> restrictions) {
+        this.restrictions = restrictions;
+    }
+
+    public void setTierType(String tierType) {
+        this.tierType = tierType;
+    }
 }

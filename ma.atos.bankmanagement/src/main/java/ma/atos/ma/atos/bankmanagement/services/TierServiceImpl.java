@@ -1,70 +1,67 @@
 package ma.atos.ma.atos.bankmanagement.services;
-
 import ma.atos.ma.atos.bankmanagement.Dtos.PersonneMoraleDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.PersonnePhysiqueDto;
 import ma.atos.ma.atos.bankmanagement.entities.PersonneMorale;
+import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.PersonneMoraleMapper;
 import ma.atos.ma.atos.bankmanagement.mappers.PersonnePhysiqueMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
+import java.util.ArrayList;
 import java.util.List;
+
 @Service
-@Transactional
-
 public class TierServiceImpl implements TierService {
-    @Autowired
-    PersonnePhysiqueMapper personnePhysiqueMapper;
-
 @Autowired
-    PersonneMoraleMapper personneMoraleMapper;
-    @Autowired
-    TierRepository tierRepository;
+      PersonneMoraleMapper personneMoraleMapper;
+@Autowired
+    PersonnePhysiqueMapper personnePhysiqueMapper;
+@Autowired
+   TierRepository tierRepository;
 
-
-    @Override
-    public List<PersonnePhysiqueDto> getAllPersonne() {
-        return null;
-    }
+  /*  @Override
+    public List<PersonneMoraleDto> getAllPersonneMorale() {
+        List<Tier> personneMorales= tierRepository.findByTierType("PM");
+        List<PersonneMoraleDto> personneMoraleDtos = personneMorales.stream().map(personneMorale ->
+                personneMoraleMapper.personneToPersonneDto((PersonneMorale) personneMorale)).collect(Collectors.toList());
+        return personneMoraleDtos;
+    }*/
 
     @Override
     public List<PersonneMoraleDto> getAllPersonneMorale() {
-        return null;
-    }
-
+        List<PersonneMorale> personneMorales= tierRepository.findByTierType("PM");
+        List<PersonneMoraleDto> personneMoraleDtos = new ArrayList<>();
+        personneMorales.stream().forEach(personneMorale ->{
+        personneMoraleDtos.add(personneMoraleMapper.personneToPersonneDto(personneMorale));
+        });
+        return personneMoraleDtos;}
     @Override
-    public PersonnePhysiqueDto getPersonnePhysique(long id) {
-        return null;
+    public PersonneMoraleDto getPersonneMorale(Long id) throws TierNotFoundExeption {
+        PersonneMorale personneMorale = (PersonneMorale) tierRepository.findById(id).orElseThrow(() ->
+                new TierNotFoundExeption("TierNotFoundExeptio"));
+        return personneMoraleMapper.personneToPersonneDto(personneMorale);
     }
-
     @Override
-    public PersonneMoraleDto getPersonneMorale(long id) {
-        return null;
+    public PersonneMoraleDto savePersonneMorale(PersonneMoraleDto personneMoraleDto) {
+        PersonneMorale personneMorale =personneMoraleMapper.PmDtoToPm(personneMoraleDto);
+        PersonneMorale savePersonneMorale=  tierRepository.save(personneMorale);
+        return personneMoraleMapper.personneToPersonneDto(savePersonneMorale);
     }
-
     @Override
-    public PersonneMorale creatPersonneMorale(PersonneMoraleDto personneMoraleDto) {
-        PersonneMorale personneMorale = personneMoraleMapper.PmDtoToPm(personneMoraleDto);
-        return tierRepository.save(personneMorale);
+    public void deletPersonneMorale(long id) {
+        tierRepository.deleteById(id);
     }
+  /*  @Override
+    public TierDto getTier(long Id) throws TierNotFoundExeption {
 
+        Tier tier = tierRepository.findById(Id)
+                .orElseThrow(() -> new TierNotFoundExeption("Tier not found"));
 
-
-        @Override
-    public PersonnePhysiqueDto creatPersonnePhysique(PersonnePhysiqueDto personnePhysiqueDto) {
-        return tierRepository.save(personnePhysiqueDto);
-
-    }
-
-    @Override
-    public void DeletPersonnePhysique(long numClient) {
-
-    }
-
-    @Override
-    public void DeletPersonneMorale(long typeIdentification) {
-
-    }
-}
+        if (tier instanceof PersonnePhysique) {
+            PersonnePhysique personnePhysique = (PersonnePhysique) tier;
+            return tierRepository.personnePhysiqueToPersonnePhysiqueDto(personnePhysique);
+        } else {
+            PersonneMorale personneMorale = (PersonneMorale) tier;
+            return tierRepository.personneToPersonneDto(personneMorale);
+        }
+    }*/ }
