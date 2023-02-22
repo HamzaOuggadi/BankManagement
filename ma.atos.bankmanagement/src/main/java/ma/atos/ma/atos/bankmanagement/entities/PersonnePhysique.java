@@ -1,7 +1,10 @@
 package ma.atos.ma.atos.bankmanagement.entities;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import java.util.Date;
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "PersonnePhysique" ,

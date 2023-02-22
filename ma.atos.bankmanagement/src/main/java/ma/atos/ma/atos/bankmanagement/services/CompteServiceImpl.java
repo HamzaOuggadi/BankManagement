@@ -1,5 +1,6 @@
 package ma.atos.ma.atos.bankmanagement.services;
 
+
 import lombok.extern.slf4j.Slf4j;
 import ma.atos.ma.atos.bankmanagement.Dtos.CompteDto;
 import ma.atos.ma.atos.bankmanagement.entities.Compte;
@@ -18,13 +19,12 @@ import java.util.List;
 @Service
 @Slf4j
 public class CompteServiceImpl implements CompteService {
+    @Autowired CompteRepository compteRepository;
+    @Autowired TierRepository tierRepository;
 
-    @Autowired
-    CompteRepository compteRepository;
-    @Autowired
-    TierRepository tierRepository;
-    @Autowired
-    CompteMapper compteMapper;
+    @Autowired CompteMapper compteMapper;
+
+
     @Override
     public List<CompteDto> listComptes() throws CompteException {
         List<Compte> comptes = compteRepository.findAll();
