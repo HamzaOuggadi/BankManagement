@@ -25,12 +25,7 @@ public class RestrictionController {
 
     @GetMapping("/restrictions")
     public List<RestrictionDto> getRestriction(){
-        List<Restriction> restrictionDtoList = restrictionRepo.findAll();
-        List<RestrictionDto> result = new ArrayList<>();
-        restrictionDtoList.stream().forEach(restriction ->
-        {result.add(restrictionMapper.restrictionToRestrictionDto(restriction));
-        });
-        return result ;
+        return restrictionService.getResctrictions() ;
     }
     @GetMapping("/restrictions/{idRestriction}")
     public Restriction getRestrictionById(@PathVariable Long idRestriction) {
@@ -39,18 +34,12 @@ public class RestrictionController {
 
     @GetMapping("/restrictions/creatRestriction")
     public void createRestriction(@RequestBody RestrictionDto restrictionDto){
-        Restriction restriction = restrictionMapper.restrictionDtoToRestriction(restrictionDto);
-        restrictionRepo.save(restriction) ;
+        restrictionService.createRestriction(restrictionDto);
+
     }
     @GetMapping("/restriction/deleteRestriction")
-    public void deleteRestriction(Long idRestriction) throws RestrictionException{
-        if (restrictionRepo.findById(idRestriction)== null){
-            throw new RestrictionException(
-                    messageSource.getMessage("idrestriction.empty", new Object[]{}, Locale.getDefault())
-                    , HttpStatus.BAD_REQUEST);
-        }
-        else{
-            restrictionRepo.deleteById(idRestriction);
-        }
+    public void deleteRestriction(@PathVariable Long idRestriction) throws RestrictionException{
+        restrictionService.deleteRestriction(idRestriction);
+
     }
 }
