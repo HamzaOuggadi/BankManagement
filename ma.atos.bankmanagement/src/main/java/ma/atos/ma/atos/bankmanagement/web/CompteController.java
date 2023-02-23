@@ -1,76 +1,41 @@
 package ma.atos.ma.atos.bankmanagement.web;
 
-import javafx.geometry.Pos;
+
 import lombok.AllArgsConstructor;
 import ma.atos.ma.atos.bankmanagement.Dtos.CompteDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.responses.GenericResponse;
-import ma.atos.ma.atos.bankmanagement.entities.Post;
 import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
-import ma.atos.ma.atos.bankmanagement.exceptions.GenResponse;
-import ma.atos.ma.atos.bankmanagement.feignproxies.SitexProxy;
-import ma.atos.ma.atos.bankmanagement.services.CompteServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
+import ma.atos.ma.atos.bankmanagement.services.CompteService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Locale;
 
+@AllArgsConstructor
 @RestController
-
 public class CompteController {
 
-    @Autowired
-    CompteServiceImpl compteService;
-    @Autowired
-    MessageSource messageSource;
-    @Autowired
-    SitexProxy sitexProxy;
+    CompteService compteService;
 
-    @GetMapping("/comptes")
-    public ResponseEntity<List<CompteDto>> listCompte() throws CompteException {
-        return ResponseEntity.ok(compteService.listComptes());
-    }
-    @GetMapping("/comptes/{ribCompte}")
-    public ResponseEntity<CompteDto> getCompte(@PathVariable Long ribCompte) throws CompteException {
-        return ResponseEntity.ok(compteService.getCompte(ribCompte));
+
+    @GetMapping("comptes")
+    public ResponseEntity<List<CompteDto>> listComptes() throws CompteException {
+        List<CompteDto> compteDtoList = compteService.listComptes();
+        return new ResponseEntity<>(compteDtoList, HttpStatus.OK);
     }
 
-    @PostMapping("/comptes/createCompte")
-    public ResponseEntity<GenericResponse> createCompte(@RequestBody CompteDto compteDto) throws CompteException {
-        GenericResponse result = new GenericResponse();
-        compteService.createCompte(compteDto);
-
-        result.setDescription(messageSource.getMessage("account.created.success", new Object[] {compteDto.getRibCompte()}, Locale.getDefault()));
-        result.setStatusCode(String.valueOf(HttpStatus.OK));
-
-        return ResponseEntity.ok(result);
-    }
-
-    @DeleteMapping("/comptes/deleteAccount/{ribCompte}")
-    public ResponseEntity<GenResponse> deleteAccount(@PathVariable Long ribCompte) throws CompteException {
-        GenResponse response = new GenResponse();
+    @DeleteMapping("delete/{ribCompte}")
+    public ResponseEntity<?> deleteCompte(@PathVariable("ribCompte") Long ribCompte) throws CompteException {
         compteService.deleteCompte(ribCompte);
-        response.setError(false);
-        response.setDescription(messageSource.getMessage("account.deleted.success", new Object[]{}, Locale.getDefault()));
-        response.setDescriptionFront(messageSource.getMessage("account.deleted.success", new Object[]{}, Locale.getDefault()));
-        return ResponseEntity.ok(response);
-    }
-/*    @GetMapping("/posts")
-    public ResponseEntity<List<Post>> getPosts() {
-        List<Post> posts = sitexProxy.getPosts();
-        return ResponseEntity.ok(posts);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/posts/{id}")
-    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
-        return ResponseEntity.ok(sitexProxy.getPostById(id));
-    }*/
-
-    @GetMapping("/ComptesDTO")
-    public ResponseEntity<List<CompteDto>> getComptesDTO() {
-        return ResponseEntity.ok(sitexProxy.getComptes());
+    @GetMapping("comptesByTier/{numClient}")
+    public ResponseEntity<List<CompteDto>> listComptesByTier(@PathVariable("numClient") String numClient) throws CompteException {
+        List<CompteDto> compteDtoList = compteService.getCompteByTier(numClient);
+        return new ResponseEntity<>(compteDtoList, HttpStatus.OK);
     }
 }
