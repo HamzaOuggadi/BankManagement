@@ -1,5 +1,6 @@
 package ma.atos.ma.atos.bankmanagement;
 import ma.atos.ma.atos.bankmanagement.entities.PersonneMorale;
+import ma.atos.ma.atos.bankmanagement.entities.PersonnePhysique;
 import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
 import ma.atos.ma.atos.bankmanagement.services.TierService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,14 +74,16 @@ public class Application {
 		//tierService.getAllPersonneMorale();
 			//tierService.getPersonneMorale(12356777);
 
-};}*/
-/*@Bean
+};}*//*
+@Bean
 	CommandLineRunner start(TierRepository tierRepository) {
 		return args -> {
 
-				PersonneMorale personneMorale=new PersonneMorale();
-				personneMorale.setRaionSociale("raisonSociale");
-				tierRepository.save(personneMorale);
+				PersonnePhysique personnePhysique=new PersonnePhysique();
+			personnePhysique.setEmail("sdfghjikram");
+			personnePhysique.setDateNaissance(new Date());
+			personnePhysique.setTierType("PP");
+				tierRepository.save(personnePhysique);
 
 
 };}*/

@@ -1,9 +1,11 @@
 package ma.atos.ma.atos.bankmanagement.services;
+import lombok.extern.slf4j.Slf4j;
 import ma.atos.ma.atos.bankmanagement.Dtos.PersonneMoraleDto;
 import ma.atos.ma.atos.bankmanagement.Dtos.PersonnePhysiqueDto;
 import ma.atos.ma.atos.bankmanagement.entities.PersonneMorale;
 import ma.atos.ma.atos.bankmanagement.entities.PersonnePhysique;
 
+import ma.atos.ma.atos.bankmanagement.entities.Tier;
 import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.PersonneMoraleMapper;
 import ma.atos.ma.atos.bankmanagement.mappers.PersonnePhysiqueMapper;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 @Service
+@Slf4j
 public class TierServiceImpl implements TierService {
     @Autowired
     MessageSource messageSource;
@@ -44,6 +47,8 @@ public class TierServiceImpl implements TierService {
         return personneMoraleDtos;}
     @Override
     public PersonneMoraleDto getPersonneMorale(Long id) throws TierNotFoundExeption {
+        PersonneMorale pp = (PersonneMorale) tierRepository.findByTierTypeEqualsAndIdClientEquals("PM", id);
+        log.info(pp.toString());
         PersonneMorale personneMorale = (PersonneMorale) tierRepository.findById(id).orElseThrow(() ->
                 new TierNotFoundExeption(messageSource.getMessage("Tier.not.found.exception",new Object[]{}, Locale.getDefault())));
         return personneMoraleMapper.personneToPersonneDto(personneMorale);
@@ -72,6 +77,8 @@ public class TierServiceImpl implements TierService {
 
     @Override
     public PersonnePhysiqueDto getPersonnePhysique(Long id) throws TierNotFoundExeption {
+        PersonnePhysique pp = (PersonnePhysique) tierRepository.findByTierTypeEqualsAndIdClientEquals("PP", id);
+        log.info(pp.toString());
         PersonnePhysique personnePhysique = (PersonnePhysique) tierRepository.findById(id).orElseThrow(() ->
                 new TierNotFoundExeption(messageSource.getMessage("Tier Not Found Exeption",new Object[]{}, Locale.getDefault())));
         return personnePhysiqueMapper.personnePhysiqueToPersonnePhysiqueDto(personnePhysique);

@@ -11,7 +11,10 @@ import java.util.List;
 public interface TierRepository extends JpaRepository<Tier, Long> {
     Tier findByNumClient(String numClient);
 
+
     List<PersonnePhysique> findPPByTierType(String type);
     List<PersonneMorale> findPMByTierType(String type);
+
+    Tier findByTierTypeEqualsAndIdClientEquals(String type, Long idClient);
 }
 
