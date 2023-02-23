@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 
 public interface SitexRepository extends JpaRepository<Sitex, Long> {
+    Sitex findSitexByIdSitex(Long idSitex);
 }

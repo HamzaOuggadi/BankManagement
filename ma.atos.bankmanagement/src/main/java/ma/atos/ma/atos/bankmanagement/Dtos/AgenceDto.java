@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AgenceDto {
 
-
     private String nomAgence;
     private String adressAgence;
 }
