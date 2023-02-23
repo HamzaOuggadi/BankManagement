@@ -7,12 +7,14 @@ import ma.atos.ma.atos.bankmanagement.exceptions.SitexExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.SitexMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.SitexRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Transactional
 @Service
@@ -23,6 +25,8 @@ public class SitexServiceImpl implements SitexService{
     SitexRepository sitexRepository;
     @Autowired
     SitexMapper sitexMapper;
+    @Autowired
+    MessageSource messageSource;
 
 
     @Override
@@ -34,7 +38,7 @@ public class SitexServiceImpl implements SitexService{
                 sitexDtos.add(sitexMapper.sitexToSitexDto(sitex));
             });
         }else{
-                throw new SitexExeption("Sitex not found");
+                throw new SitexExeption(messageSource.getMessage("sitex.not.found.message",new Object[]{}, Locale.getDefault()));
             }
             return  sitexDtos;
         }
@@ -58,7 +62,9 @@ public class SitexServiceImpl implements SitexService{
     public void deleteSitex(Long idSitex) throws SitexExeption{
 
         if(sitexRepository.findSitexByIdSitex(idSitex) == null){
-            throw new SitexExeption("Sitex not found");
+            throw new SitexExeption(
+                    messageSource.getMessage("sitex.not.found.message",new Object[]{}, Locale.getDefault())
+            );
         }
         else{
             sitexRepository.deleteById(idSitex);
