@@ -45,7 +45,7 @@ public class SitexServiceImpl implements SitexService{
 
     @Override
     public SitexDto getSitex(Long idSitex) {
-        Sitex sitex = sitexRepository.findSitexByIdSitex(idSitex);
+        Sitex sitex = sitexRepository.findById(idSitex).get();
         SitexDto sitexDto = sitexMapper.sitexToSitexDto(sitex);
         return  sitexDto;
     }
@@ -61,7 +61,7 @@ public class SitexServiceImpl implements SitexService{
     @Override
     public void deleteSitex(Long idSitex) throws SitexExeption{
 
-        if(sitexRepository.findSitexByIdSitex(idSitex) == null){
+        if(!sitexRepository.findById(idSitex).isPresent()){
             throw new SitexExeption(
                     messageSource.getMessage("sitex.not.found.message",new Object[]{}, Locale.getDefault())
             );
