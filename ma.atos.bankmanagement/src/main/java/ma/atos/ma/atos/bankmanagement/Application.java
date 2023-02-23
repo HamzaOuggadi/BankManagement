@@ -62,7 +62,4 @@ CommandLineRunner startCompte(OperationServiceImpl operationService,
 	}*/
 
 
-
-
-
 }
