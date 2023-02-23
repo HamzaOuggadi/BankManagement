@@ -39,10 +39,10 @@ public class Application {
             }
         };
     }
-/
+*/
 
-    //@Bean
-   /* CommandLineRunner start(OperationServiceImpl operationService,
+   @Bean
+    CommandLineRunner start(OperationServiceImpl operationService,
                             OperationRepository operationRepository,
                             CompteService compteService) {
         return args -> {
@@ -57,7 +57,7 @@ public class Application {
 
             }
         };
-    }*/
+    }
 
 
 }
