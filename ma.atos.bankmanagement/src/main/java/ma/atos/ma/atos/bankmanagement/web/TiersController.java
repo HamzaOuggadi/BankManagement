@@ -36,9 +36,13 @@ TierService tierService;
     public PersonneMoraleDto getPersonneMorale(@PathVariable(name = "id") Long tierId) throws TierNotFoundExeption {
         return tierService.getPersonneMorale(tierId);
     }
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/PersonnePhysiquedelete/{id}")
     public void deletPersonnePhysique(@PathVariable Long id) {
         tierService.deletPersonnePhysique(id);
+    }
+    @DeleteMapping("/PersonneMoraledelete/{id}")
+    public void deletPersonneMorale(@PathVariable Long id) {
+        tierService.deletPersonneMorale(id);
     }
     @PostMapping("/savePersonnePhysique")
     @ResponseBody
