@@ -3,7 +3,6 @@ package ma.atos.ma.atos.bankmanagement.exceptions;
 import lombok.extern.log4j.Log4j2;
 import ma.atos.ma.atos.bankmanagement.Dtos.responses.ErrorStatus;
 import ma.atos.ma.atos.bankmanagement.Dtos.responses.GenericResponse;
-import ma.atos.ma.atos.bankmanagement.enums.ApiStatusCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -35,9 +34,9 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
             e.printStackTrace();
             response.setError(true);
             response.setDescription(e.getMessage());
-            response.setDescriptionFront(e.getMessageFront());
-            response.setStatusCode(e.getCode());
-            return ResponseEntity.status(e.getHttpStatus()).body(response);
+            response.setDescriptionFront("Account Not Found!");
+            response.setStatusCode("API COMPTE 001");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
 
