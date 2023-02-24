@@ -25,17 +25,21 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
 
 
+    }
+    @ExceptionHandler(RestrictionException.class)
+    public ResponseEntity<GenericResponse> handleException(RestrictionException ex){
+            GenericResponse result = new GenericResponse();
+
+            log.error(ex.getMessage(), ex);
+            ex.printStackTrace();
+            ex.setMessage(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
+            ex.setMessage(ErrorStatus.NOT_FOUND.description());
+
+            return ResponseEntity.status(HttpStatus.OK).body(result);
 
     }
-    @ExceptionHandler(TierNotFoundExeption.class)
-    public ResponseEntity<GenericResponse> handleTierNotFoundExeptionException(TierNotFoundExeption e) {
-        GenericResponse result = new GenericResponse();
-        log.error(e.getMessage(), e);
-        e.printStackTrace();
-        result.setStatusCode(String.valueOf(e.getCode()));
-        result.setDescription(e.getMessage());
-        return ResponseEntity.status(HttpStatus.OK).body(result);
 
 
-    }
+
+
 }
