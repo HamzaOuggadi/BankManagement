@@ -1,7 +1,10 @@
 package ma.atos.ma.atos.bankmanagement.exceptions;
 
 public class SitexExeption extends Exception{
-    public SitexExeption(String message) {
-        super(message);
-    }
+   private String message;
+
+   public SitexExeption(String message){
+       super();
+       this.message=message;
+   }
 }

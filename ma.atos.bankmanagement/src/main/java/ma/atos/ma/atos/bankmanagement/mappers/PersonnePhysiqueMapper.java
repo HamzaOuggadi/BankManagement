@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface PersonnePhysiqueMapper {
 
-    RestrictionDto personnePhysiqueToPersonnePhysiqueDto(PersonnePhysique personnePhysique);
+    PersonnePhysiqueDto personnePhysiqueToPersonnePhysiqueDto(PersonnePhysique personnePhysique);
 
     PersonnePhysique PpDtoToPp(PersonnePhysiqueDto personnePhysiqueDto);
 }
