@@ -9,6 +9,6 @@ import java.util.List;
 public interface SitexService {
     List<SitexDto> listSitex() throws SitexExeption;
     SitexDto getSitex(Long idSitex);
-    void createSitex(SitexDto sitexDto);
+    Sitex createSitex(SitexDto sitexDto);
     void deleteSitex(Long idSitex) throws SitexExeption ;
 }
