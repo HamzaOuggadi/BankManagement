@@ -27,7 +27,17 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
     }
 
-
+    @ExceptionHandler(CompteException.class)
+    public ResponseEntity<GenResponse> handleCompteException(CompteException e) {
+            GenResponse response = new GenResponse();
+            log.error(e.getMessage());
+            e.printStackTrace();
+            response.setError(true);
+            response.setDescription(e.getMessage());
+            response.setDescriptionFront("Account Not Found!");
+            response.setStatusCode("API COMPTE 001");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+    }
 
 
 
