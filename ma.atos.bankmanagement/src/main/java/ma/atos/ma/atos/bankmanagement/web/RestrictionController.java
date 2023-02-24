@@ -21,7 +21,6 @@ public class RestrictionController {
     MessageSource messageSource;
     @Autowired
     RestrictionServiceImpl restrictionService;
-
     @GetMapping("/restrictions")
     public List<RestrictionDto> getRestriction(){
         return restrictionService.getResctrictions() ;

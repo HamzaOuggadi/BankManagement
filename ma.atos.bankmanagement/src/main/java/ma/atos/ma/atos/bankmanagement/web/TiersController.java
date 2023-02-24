@@ -15,7 +15,6 @@ TierService tierService;
     public TiersController(TierService tierService) {
         this.tierService = tierService;
     }
-
     @GetMapping("/listPersonnePhysique")
     @ResponseBody
     public List<PersonnePhysiqueDto> personnePhysiqueDTOList(){

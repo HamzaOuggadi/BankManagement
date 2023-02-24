@@ -47,8 +47,6 @@ public class Application {
 //	};
 //}
 /*
-
-
 	@Bean
 	CommandLineRunner start(OperationServiceImpl operationService,
 							OperationRepository operationRepository,
@@ -84,8 +82,6 @@ public class Application {
 			personnePhysique.setDateNaissance(new Date());
 			personnePhysique.setTierType("PP");
 				tierRepository.save(personnePhysique);
-
-
 };}*/
 	/*@Bean
 	CommandLineRunner start(TierRepository tierRepository) {
