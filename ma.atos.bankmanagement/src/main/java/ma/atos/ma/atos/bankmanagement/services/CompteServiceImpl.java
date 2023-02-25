@@ -1,17 +1,22 @@
 package ma.atos.ma.atos.bankmanagement.services;
 
 
+import jdk.nashorn.internal.runtime.options.Option;
 import lombok.extern.slf4j.Slf4j;
 import ma.atos.ma.atos.bankmanagement.Dtos.CompteDto;
 import ma.atos.ma.atos.bankmanagement.Dtos.SitexDto;
+import ma.atos.ma.atos.bankmanagement.config.MessageConfiguration;
 import ma.atos.ma.atos.bankmanagement.entities.Compte;
 import ma.atos.ma.atos.bankmanagement.entities.Tier;
+import ma.atos.ma.atos.bankmanagement.enums.ApiStatusCode;
 import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
 import ma.atos.ma.atos.bankmanagement.mappers.CompteMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.CompteRepository;
 import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.MessageSource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -19,6 +24,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -29,6 +36,8 @@ public class CompteServiceImpl implements CompteService {
     @Autowired CompteMapper compteMapper;
 
     @Autowired RestTemplate restTemplate;
+
+    @Autowired MessageSource messageSource;
 
     @Value("${sitex.uri.host}")
     private String hostSitex;
@@ -45,18 +54,23 @@ public class CompteServiceImpl implements CompteService {
                 compteDtos.add(compteMapper.compteToCompteDto(compte));
             });
         } else {
-            throw new CompteException("Account Not Found !");
+            throw new CompteException(
+                    messageSource.getMessage("account.list.not.found.message", new Object[]{}, Locale.getDefault()),
+                    messageSource.getMessage("account.list.not.found.messageFront", new Object[]{}, Locale.getDefault()),
+                    ApiStatusCode.API_COMPTE_300,
+                    HttpStatus.NOT_FOUND);
         }
 
         return compteDtos;
     }
 
     @Override
-    public CompteDto getCompte(Long ribCompte) {
-        Compte compte = compteRepository.findCompteByRibCompte(ribCompte);
+    public CompteDto getCompte(Long ribCompte) throws CompteException {
+
         // CALL THE SITEX API REST START /////
         // Method HTTP , RequestBody Path Variable
-        SitexDto sitexDto = new SitexDto();
+        /*SitexDto sitexDto = new SitexDto();
+        sitexDto.setType("Frozen");
         String url = hostSitex.concat(actionCreateSitex);
 
         ResponseEntity<String> result = restTemplate
@@ -65,14 +79,21 @@ public class CompteServiceImpl implements CompteService {
                         sitexDto,
                         String.class);
 
-        log.info("Sitex crée avec succes pour ce compte, réponse d'API est  " + result.getBody());
+        log.info("Sitex crée avec succes pour ce compte, réponse d'API est  " + result.getBody());*/
 
         // CALL THE SITEX API REST END   ////
 
+        Compte compte = compteRepository.findByRibCompte(ribCompte);
 
-
-        CompteDto compteDto = compteMapper.compteToCompteDto(compte);
-        return compteDto;
+        if (compte == null) {
+            throw new CompteException(
+                    messageSource.getMessage("account.not.found.message", new Object[]{ribCompte}, Locale.getDefault()),
+                    messageSource.getMessage("account.not.found.messageFront", new Object[]{}, Locale.getDefault()),
+                    ApiStatusCode.API_COMPTE_100,
+                    HttpStatus.NOT_FOUND);
+        } else {
+            return compteMapper.compteToCompteDto(compte);
+        }
     }
 
     /**

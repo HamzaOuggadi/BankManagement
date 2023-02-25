@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface CompteService {
     List<CompteDto> listComptes() throws CompteException;
-    CompteDto getCompte(Long ribCompte);
+    CompteDto getCompte(Long ribCompte) throws CompteException;
     List<CompteDto> getCompteByTier(String numClient) throws CompteException;
     void createCompte(CompteDto compteDto);
     void deleteCompte(Long ribCompte) throws CompteException;
