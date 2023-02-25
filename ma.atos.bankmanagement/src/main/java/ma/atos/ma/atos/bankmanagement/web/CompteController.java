@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import ma.atos.ma.atos.bankmanagement.Dtos.CompteDto;
 import ma.atos.ma.atos.bankmanagement.Dtos.responses.GenericResponse;
 import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
+import ma.atos.ma.atos.bankmanagement.exceptions.GenResponse;
 import ma.atos.ma.atos.bankmanagement.services.CompteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -25,7 +26,7 @@ public class CompteController {
         return ResponseEntity.ok(compteService.listComptes());
     }
     @GetMapping("/comptes/{ribCompte}")
-    public ResponseEntity<CompteDto> getCompte(@PathVariable Long ribCompte) {
+    public ResponseEntity<CompteDto> getCompte(@PathVariable Long ribCompte) throws CompteException {
         return ResponseEntity.ok(compteService.getCompte(ribCompte));
     }
 
@@ -38,6 +39,16 @@ public class CompteController {
         result.setStatusCode(String.valueOf(HttpStatus.OK));
 
         return ResponseEntity.ok(result);
+    }
+
+    @DeleteMapping("/comptes/deleteAccount/{ribCompte}")
+    public ResponseEntity<GenResponse> deleteAccount(@PathVariable Long ribCompte) throws CompteException {
+        GenResponse response = new GenResponse();
+        compteService.deleteCompte(ribCompte);
+        response.setError(false);
+        response.setDescription(messageSource.getMessage("account.deleted.success", new Object[]{}, Locale.getDefault()));
+        response.setDescriptionFront(messageSource.getMessage("account.deleted.success", new Object[]{}, Locale.getDefault()));
+        return ResponseEntity.ok(response);
     }
 
 }
