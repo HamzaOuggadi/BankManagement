@@ -32,7 +32,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
             log.error(ex.getMessage(), ex);
             ex.printStackTrace();
-            ex.setMessage(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
+            ex.setCode(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
             ex.setMessage(ErrorStatus.NOT_FOUND.description());
 
             return ResponseEntity.status(HttpStatus.OK).body(result);
