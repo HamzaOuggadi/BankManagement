@@ -31,7 +31,7 @@ public class CompteController {
     }
 
     @PostMapping("/comptes/createCompte")
-    public ResponseEntity<GenericResponse> createCompte(@RequestBody CompteDto compteDto) {
+    public ResponseEntity<GenericResponse> createCompte(@RequestBody CompteDto compteDto) throws CompteException {
         GenericResponse result = new GenericResponse();
         compteService.createCompte(compteDto);
 
