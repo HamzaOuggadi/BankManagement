@@ -33,7 +33,7 @@ public class RestrictionController {
         restrictionService.createRestriction(restrictionDto);
 
     }
-    @GetMapping("/restriction/delete")
+    @GetMapping("/restrictions/delete/{idRestriction}")
     public void deleteRestriction(@PathVariable Long idRestriction) throws RestrictionException{
         restrictionService.deleteRestriction(idRestriction);
 

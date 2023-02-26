@@ -45,8 +45,8 @@ public class RestrictionServiceImpl implements RestrictionService {
     public void deleteRestriction(Long idRestriction) throws RestrictionException {
         if (restrictionRepo.findById(idRestriction)== null){
             throw new RestrictionException(
-                    messageSource.getMessage("Restriction.not.found.message", new Object[]{}, Locale.getDefault())
-                            , HttpStatus.BAD_REQUEST);
+                    messageSource.getMessage("Restriction.not.found.message", new Object[]{}
+                            , Locale.getDefault()));
         }
         else{
             restrictionRepo.deleteById(idRestriction);
