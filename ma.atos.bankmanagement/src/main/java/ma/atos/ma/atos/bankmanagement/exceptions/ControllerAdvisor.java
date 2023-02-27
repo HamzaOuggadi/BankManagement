@@ -49,8 +49,8 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
            GenericResponse result = new GenericResponse();
             log.error(ex.getMessage(), ex);
             ex.printStackTrace();
-            result.setStatusCode(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
-            result.setDescription(ErrorStatus.TECHNICAL_ERROR.description());
+            ex.setCode(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
+            ex.setMessage(ErrorStatus.TECHNICAL_ERROR.description());
             return ResponseEntity.status(HttpStatus.OK).body(result);
     }
 
