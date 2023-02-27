@@ -82,4 +82,6 @@ public class CompteServiceImpl implements CompteService {
             compteRepository.delete(compteRepository.findCompteByRibCompte(ribCompte));
         }
     }
+
+
 }

@@ -6,6 +6,7 @@ import ma.atos.ma.atos.bankmanagement.entities.Restriction;
 import ma.atos.ma.atos.bankmanagement.exceptions.RestrictionException;
 import ma.atos.ma.atos.bankmanagement.mappers.RestrictionMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.RestrictionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,11 @@ import java.util.Locale;
 @Service
 @AllArgsConstructor
 public class RestrictionServiceImpl implements RestrictionService {
+    @Autowired
     RestrictionRepository restrictionRepo;
-
+    @Autowired
     RestrictionMapper restrictionMapper;
+    @Autowired
     MessageSource messageSource;
 
 
@@ -45,8 +48,8 @@ public class RestrictionServiceImpl implements RestrictionService {
     public void deleteRestriction(Long idRestriction) throws RestrictionException {
         if (restrictionRepo.findById(idRestriction)== null){
             throw new RestrictionException(
-                    messageSource.getMessage("Restriction.not.found.message", new Object[]{}, Locale.getDefault())
-                            , HttpStatus.BAD_REQUEST);
+                    messageSource.getMessage("Restriction.not.found.message", new Object[]{}
+                            , Locale.getDefault()));
         }
         else{
             restrictionRepo.deleteById(idRestriction);

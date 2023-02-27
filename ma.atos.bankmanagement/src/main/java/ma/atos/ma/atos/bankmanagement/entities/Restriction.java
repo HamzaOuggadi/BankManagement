@@ -10,6 +10,7 @@ public class Restriction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idRestriction;
     private String etat;
+
 //    @ManyToOne
 //    private Tier tier;
 

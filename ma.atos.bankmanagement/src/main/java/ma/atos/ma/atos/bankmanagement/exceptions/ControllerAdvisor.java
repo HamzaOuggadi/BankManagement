@@ -13,22 +13,45 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @Log4j2
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
-        @ExceptionHandler(Exception.class)
-        public ResponseEntity<GenericResponse> handleException(Exception e) {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<GenericResponse> handleException(Exception e) {
             GenericResponse result = new GenericResponse();
-
             log.error(e.getMessage(), e);
             e.printStackTrace();
             result.setStatusCode(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
             result.setDescription(ErrorStatus.TECHNICAL_ERROR.description());
-
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
-
-
     }
 
+//    @ExceptionHandler(OperationNotFoundException.class)
+//    public ResponseEntity<GenericResponse> handleOperationException(Exception e) {
+//            GenericResponse result = new GenericResponse();
+//            log.error(e.getMessage(), e);
+//            e.printStackTrace();
+//            result.setStatusCode(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
+//            result.setDescription(ErrorStatus.TECHNICAL_ERROR.description());
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+//    }
 
-
-
+    @ExceptionHandler(CustomerException.class)
+    public ResponseEntity<GenericResponse> handleCustomerException(CustomerException ex) {
+        GenericResponse result = new GenericResponse();
+        result.setDescriptionForOperation(ex.getMessage());
+        result.setError(true);
+        result.setDescription(ex.getMessage());
+        result.setStatusCode(String.valueOf(HttpStatus.NOT_FOUND));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(result);
+    }
+    @ExceptionHandler(RestrictionException.class)
+    public ResponseEntity<GenericResponse> handleOperationException(RestrictionException ex) {
+           GenericResponse result = new GenericResponse();
+            log.error(ex.getMessage(), ex);
+            ex.printStackTrace();
+            ex.setCode(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
+            ex.setMessage(ErrorStatus.TECHNICAL_ERROR.description());
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 
 }

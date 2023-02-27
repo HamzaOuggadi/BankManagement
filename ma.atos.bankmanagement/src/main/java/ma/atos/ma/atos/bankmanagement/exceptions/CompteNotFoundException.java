@@ -20,8 +20,8 @@ public class CompteNotFoundException extends RuntimeException{
         this.httpStatus = httpStatus;
     }
 
-    public CompteNotFoundException(String s, Object[] objects) {
-    }
+//    public CompteNotFoundException(String s, Object[] objects) {
+//    }
 
 
 
