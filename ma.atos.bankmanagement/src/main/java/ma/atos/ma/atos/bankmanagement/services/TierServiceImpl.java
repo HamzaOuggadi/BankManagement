@@ -5,8 +5,6 @@ import ma.atos.ma.atos.bankmanagement.Dtos.PersonnePhysiqueDto;
 import ma.atos.ma.atos.bankmanagement.entities.PersonneMorale;
 import ma.atos.ma.atos.bankmanagement.entities.PersonnePhysique;
 
-import ma.atos.ma.atos.bankmanagement.entities.Tier;
-import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
 import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.PersonneMoraleMapper;
 import ma.atos.ma.atos.bankmanagement.mappers.PersonnePhysiqueMapper;
@@ -59,9 +57,17 @@ public class TierServiceImpl implements TierService {
         return personneMoraleMapper.personneToPersonneDto(savePersonneMorale);
     }
     @Override
-    public void deletPersonneMorale(long id) {
-        tierRepository.deleteById(id);
+    public int deletPersonneMorale(long id)throws TierNotFoundExeption
+    {
+        if(!tierRepository.findById(id).isPresent()){
+            throw new TierNotFoundExeption("Tier not found ","Tier.not.found.exception");
+        }
+        else{
+            tierRepository.deleteById(id);
+        }
+        return 1;
     }
+
     @Override
     public List<PersonnePhysiqueDto> getAllPersonnePhysique() {
         List<PersonnePhysique> personnePhysiques= tierRepository.findPPByTierType("PP");
@@ -86,14 +92,22 @@ public class TierServiceImpl implements TierService {
         return personnePhysiqueMapper.personnePhysiqueToPersonnePhysiqueDto(savePersonnePhysique);
     }
     @Override
-    public void deletPersonnePhysique(long id) throws TierNotFoundExeption {
-        if (tierRepository.findById(id) ==null) {
-
+    public int deletPersonnePhysique(long id) throws TierNotFoundExeption {
+        if(!tierRepository.findById(id).isPresent()){
             throw new TierNotFoundExeption("Tier not found ","Tier.not.found.exception");
-        } else {
+        }
+        else{
             tierRepository.deleteById(id);
         }
+        return 1;
     }
+  /*BankAccount bankAccount = bankAccountRepository.findById(accountId).orElse(null);
+		if(bankAccount==null) {
+        throw new BankAccountNotFoundException("Bank Account Not Found");
+    }*/
+   /*     @Override
+    public void deletPersonnePhysique(long id) {
+        tierRepository.findById(id).orElse(null);*/
 
   /*  @Override
     public TierDto getTier(long Id) throws TierNotFoundExeption {

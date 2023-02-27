@@ -67,13 +67,11 @@ public class CompteServiceImpl implements CompteService {
         }
         return compteDtos;
     }
-
     @Override
     public void createCompte(CompteDto compteDto) {
         Compte compte = compteMapper.compteDtoToCompte(compteDto);
         compteRepository.save(compte);
     }
-
     @Override
     public void deleteCompte(Long ribCompte) throws CompteException {
         if (compteRepository.findCompteByRibCompte(ribCompte) == null) {

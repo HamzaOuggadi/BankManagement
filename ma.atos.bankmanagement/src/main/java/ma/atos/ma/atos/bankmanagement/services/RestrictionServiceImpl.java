@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
 @Service
 @AllArgsConstructor
 public class RestrictionServiceImpl implements RestrictionService {
