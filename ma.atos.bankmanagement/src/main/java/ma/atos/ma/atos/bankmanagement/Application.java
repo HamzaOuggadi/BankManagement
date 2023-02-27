@@ -4,21 +4,21 @@ import ma.atos.ma.atos.bankmanagement.Dtos.RestrictionDto;
 import ma.atos.ma.atos.bankmanagement.repositories.RestrictionRepository;
 
 import ma.atos.ma.atos.bankmanagement.services.RestrictionServiceImpl;
+import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
-
+@EnableScheduling
 @SpringBootApplication
-
+@EnableRabbit
 public class Application {
-
 	@Autowired
 	RestrictionServiceImpl restrictionService;
-
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
@@ -75,7 +75,7 @@ public class Application {
 	CommandLineRunner start(TierRepository tierRepository) {
 		return args -> {
 
-				PersonnePhysique personnePhysique=new PersonnePhysique();
+			PersonnePhysique personnePhysique=new PersonnePhysique();
 			personnePhysique.setEmail("sdfghjikram");
 			personnePhysique.setDateNaissance(new Date());
 			personnePhysique.setTierType("PP");

@@ -26,20 +26,17 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<!-- https://mvnrepository.com/artifact/org.postgresql/postgresql -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.5.1</version>
 		</dependency>
-
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<optional>true</optional>
 		</dependency>
-
 		<dependency>
 			<groupId>org.mapstruct</groupId>
 			<artifactId>mapstruct</artifactId>
@@ -51,23 +48,29 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-
-<!--		<dependency>-->
+		<!-- https://mvnrepository.com/artifact/org.springframework.amqp/spring-rabbit -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.amqp</groupId>
+			<artifactId>spring-rabbit-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<!--		<dependency>-->
 <!--			<groupId>org.testng</groupId>-->
 <!--			<artifactId>testng</artifactId>-->
 <!--			<version>RELEASE</version>-->
 <!--			<scope>compile</scope>-->
 <!--		</dependency>-->
-
 			<dependency>
 				<groupId>org.testng</groupId>
 				<artifactId>testng</artifactId>
 				<version>6.14.3</version>
 				<scope>test</scope>
 			</dependency>
-
 	</dependencies>
-
 	<build>
 		<plugins>
 <!--			<plugin>-->
@@ -82,7 +85,6 @@
 <!--					</excludes>-->
 <!--				</configuration>-->
 <!--			</plugin>-->
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -112,11 +114,8 @@
 					</compilerArgs>
 				</configuration>
 			</plugin>
-
-
 		</plugins>
 	</build>
-
 </project>
 
 
