@@ -44,6 +44,14 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
                 .status(HttpStatus.OK)
                 .body(result);
     }
-
+    @ExceptionHandler(RestrictionException.class)
+    public ResponseEntity<GenericResponse> handleOperationException(RestrictionException ex) {
+           GenericResponse result = new GenericResponse();
+            log.error(ex.getMessage(), ex);
+            ex.printStackTrace();
+            result.setStatusCode(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
+            result.setDescription(ErrorStatus.TECHNICAL_ERROR.description());
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 
 }

@@ -6,6 +6,7 @@ import ma.atos.ma.atos.bankmanagement.entities.Restriction;
 import ma.atos.ma.atos.bankmanagement.exceptions.RestrictionException;
 import ma.atos.ma.atos.bankmanagement.mappers.RestrictionMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.RestrictionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,9 +18,11 @@ import java.util.Locale;
 @Service
 @AllArgsConstructor
 public class RestrictionServiceImpl implements RestrictionService {
+    @Autowired
     RestrictionRepository restrictionRepo;
-
+    @Autowired
     RestrictionMapper restrictionMapper;
+    @Autowired
     MessageSource messageSource;
 
 
