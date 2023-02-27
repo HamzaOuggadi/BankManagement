@@ -9,7 +9,8 @@ import java.util.List;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "TIER_TYPE")
 @Table(name = "Tier", uniqueConstraints =
-        {@UniqueConstraint( columnNames = {"numClient"})})
+        {@UniqueConstraint( columnNames = {"numClient"})}
+)
 public abstract class Tier {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Long idClient;

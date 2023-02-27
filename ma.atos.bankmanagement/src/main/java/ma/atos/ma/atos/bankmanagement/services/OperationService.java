@@ -2,24 +2,30 @@ package ma.atos.ma.atos.bankmanagement.services;
 
 import ma.atos.ma.atos.bankmanagement.Dtos.DepotDto;
 import ma.atos.ma.atos.bankmanagement.Dtos.OperationDto;
+import ma.atos.ma.atos.bankmanagement.Dtos.VirementDto;
+
 import java.util.List;
 
 public interface OperationService {
 
-    //List Operation
     List<OperationDto> getAllOperations();
 
-    //List Operation by Compte
-    List<OperationDto> getOperationsByCompte(Long id);
+    List<OperationDto> getOperationsByRibCompte(Long ribCompte);
 
-    //Create Operation
-    OperationDto createOperation(OperationDto operationDto);
+    List<OperationDto> getOperationsByTypeOperation(String typeOperation);
 
-    //Get Operation by Id
     OperationDto getOperationById(Long id);
 
-    //Get Operation by Type Operation
-    List<OperationDto> getOperationsByTypeOperation(String typeOperation);
+    public VirementDto createVirement(VirementDto virementDto);
+
+    public DepotDto createDepot(DepotDto depotDto);
+
+    // Version 2 to creat operation with OperaionDto
+    OperationDto createOperation(OperationDto operationDto);
+
+
+
+
 
 
 }

@@ -14,6 +14,6 @@ public class GenericResponse {
 
     private String description;
 
-//    private String description
+    private String descriptionForOperation;
 
 }
