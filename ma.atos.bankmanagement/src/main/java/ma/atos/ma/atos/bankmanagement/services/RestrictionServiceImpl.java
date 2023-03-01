@@ -16,7 +16,8 @@ import java.util.Locale;
 
 @Service
 @AllArgsConstructor
-public class RestrictionServiceImpl implements RestrictionService {
+public class
+RestrictionServiceImpl implements RestrictionService {
     @Autowired
     RestrictionRepository restrictionRepo;
     @Autowired
@@ -28,11 +29,11 @@ public class RestrictionServiceImpl implements RestrictionService {
     @Override
     public List<RestrictionDto> getResctrictions() {
         List<Restriction> restrictionDtoList = restrictionRepo.findAll();
-        List<RestrictionDto> result = new ArrayList<>();
+        List<RestrictionDto> restrictionDtos = new ArrayList<>();
         restrictionDtoList.stream().forEach(restriction -> {
-            result.add(restrictionMapper.restrictionToRestrictionDto(restriction));
+            restrictionDtos.add(restrictionMapper.restrictionToRestrictionDto(restriction));
         });
-        return result;
+        return restrictionDtos;
     }
     @Override
     public Restriction getRestrictionById(Long idRestriction){
