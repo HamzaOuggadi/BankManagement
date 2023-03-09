@@ -53,9 +53,9 @@ public class SitexServiceImpl implements SitexService{
 
 
     @Override
-    public void createSitex(SitexDto sitexDto) {
+    public Sitex createSitex(SitexDto sitexDto) {
       Sitex sitex = sitexMapper.sitexDtoToSitex(sitexDto);
-      sitexRepository.save(sitex);
+      return sitexRepository.save(sitex);
     }
 
     @Override
