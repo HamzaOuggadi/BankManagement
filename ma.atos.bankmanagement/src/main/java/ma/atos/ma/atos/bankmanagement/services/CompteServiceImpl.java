@@ -37,10 +37,10 @@ public class CompteServiceImpl implements CompteService {
 
     @Autowired MessageSource messageSource;
 
-    @Value("${sitex.uri.host}")
+/*    @Value("${sitex.uri.host}")
     private String hostSitex;
     @Value("${sitex.create.action}")
-    private String actionCreateSitex;
+    private String actionCreateSitex;*/
 
 
     @Override

@@ -19,10 +19,14 @@ import java.util.List;
 import java.util.Locale;
 
 @RestController
-@AllArgsConstructor
+
 public class CompteController {
+
+    @Autowired
     CompteServiceImpl compteService;
+    @Autowired
     MessageSource messageSource;
+    @Autowired
     SitexProxy sitexProxy;
 
     @GetMapping("/comptes")

@@ -15,12 +15,15 @@ import ma.atos.ma.atos.bankmanagement.services.OperationServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Date;
 
 @SpringBootApplication
-
+@EnableFeignClients
 public class Application {
 
 	@Autowired
@@ -30,22 +33,22 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-//@Bean
-//CommandLineRunner start(OperationServiceImpl operationService,
-//						OperationRepository operationRepository,
-//						CompteService compteService) {
-//	return args -> {
-//		for (int i=0; i<10; i++) {
-//			CompteDto compteDto = new CompteDto();
-//			compteDto.setRibCompte(i+123456789L);
-//			compteDto.setBalance(Math.random()*100000);
-//			compteDto.setDevise("MAD");
-//			compteDto.setDateCreation(new Date());
-//			compteDto.setTypeCompte(TypeCompte.COMPTE_COURANT);
-//			compteService.createCompte(compteDto);
-//		}
-//	};
-//}
+@Bean
+CommandLineRunner start(OperationServiceImpl operationService,
+						OperationRepository operationRepository,
+						CompteService compteService) {
+	return args -> {
+		for (int i=0; i<10; i++) {
+			CompteDto compteDto = new CompteDto();
+			compteDto.setRibCompte(i+123456789L);
+			compteDto.setBalance(Math.random()*100000);
+			compteDto.setDevise("MAD");
+			compteDto.setDateCreation(new Date());
+			compteDto.setTypeCompte(TypeCompte.COMPTE_COURANT);
+			compteService.createCompte(compteDto);
+		}
+	};
+}
 /*
 
 
