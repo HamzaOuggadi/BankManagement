@@ -29,12 +29,12 @@ public interface SitexProxy {
     List<CompteDto> getComptes();
 
 
-/*    @GetMapping("")
+    @GetMapping("")
     SitexDto getSitex(@PathVariable(name = "idSitex") Long idSitex);
     @GetMapping("")
     List<SitexDto> sitexes() throws SitexExeption;
     @PostMapping("")
     String createSitex(@RequestBody SitexDto sitexDto);
     @DeleteMapping("")
-    void deleteSitex(@PathVariable Long idSitex);*/
+    void deleteSitex(@PathVariable Long idSitex);
 }
