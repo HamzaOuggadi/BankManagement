@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/sitex")
 @AllArgsConstructor
 public class SitexController {
     private SitexRepository sitexRepository;
@@ -23,9 +24,10 @@ public class SitexController {
     public List<SitexDto> sitexes() throws SitexExeption {
         return sitexService.listSitex();
     }
-    @PostMapping("/sitex")
-    public void createSitex(@RequestBody SitexDto sitexDto){
+    @PostMapping("/create")
+    public String createSitex(@RequestBody SitexDto sitexDto){
          sitexService.createSitex(sitexDto);
+         return "";
     }
     @DeleteMapping("/sitex/{idSitex}")
     public void deleteSitex(@PathVariable Long idSitex) throws SitexExeption {

@@ -53,14 +53,13 @@ public class SitexServiceImpl implements SitexService{
 
 
     @Override
-    public void createSitex(SitexDto sitexDto) {
+    public Sitex createSitex(SitexDto sitexDto) {
       Sitex sitex = sitexMapper.sitexDtoToSitex(sitexDto);
-      sitexRepository.save(sitex);
+      return sitexRepository.save(sitex);
     }
 
     @Override
     public void deleteSitex(Long idSitex) throws SitexExeption{
-
         if(!sitexRepository.findById(idSitex).isPresent()){
             throw new SitexExeption(
                     messageSource.getMessage("sitex.not.found.message",new Object[]{}, Locale.getDefault())
