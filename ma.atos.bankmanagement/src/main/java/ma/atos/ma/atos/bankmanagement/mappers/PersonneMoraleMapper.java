@@ -12,4 +12,6 @@ public interface PersonneMoraleMapper {
 
     PersonneMoraleDto personneToPersonneDto(PersonneMorale personneMorale);
     PersonneMorale PmDtoToPm(PersonneMoraleDto personneMoraleDto);
+
+
 }
