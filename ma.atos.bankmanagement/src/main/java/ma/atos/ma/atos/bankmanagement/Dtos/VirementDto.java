@@ -12,34 +12,34 @@ import javax.persistence.Entity;
 import java.util.Date;
 
 @Data
-//@NoArgsConstructor
-//@AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 //@EqualsAndHashCode(callSuper = true)
 
-public class VirementDto {
+public class VirementDto extends OperationDto {
 
-    private double montant;
-    private String description;
-    private Date dateOperation;
-    private SensOperation sensOperation;
+//    private double montant;
+//    private String description;
+//    private Date dateOperation;
+//    private SensOperation sensOperation;
 
 //    private String typeOperation;
 
 //    @JsonIgnore
-//    private Long idCompte;
+    private Long idCompte;
 
-
+//    @JsonIgnore
     private Long ribCompte;
 
-    private String ribCompteDestinataire;
-
+    @JsonIgnore
     public Long getRibCompte() {
         return ribCompte;
     }
 
-    public void setRibCompte(Long ribCompte) {
-        this.ribCompte = ribCompte;
-    }
+    private Long ribCompteDestinataire;
 
+    public Long getRibCompteDestinataire() {
+        return ribCompteDestinataire;
+    }
 
 }
