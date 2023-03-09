@@ -122,7 +122,6 @@ public class CompteServiceImpl implements CompteService {
             return compteDtos;
         }
     }
-
     @Override
     public void createCompte(CompteDto compteDto) throws CompteException {
         Compte compte = compteMapper.compteDtoToCompte(compteDto);
@@ -136,7 +135,6 @@ public class CompteServiceImpl implements CompteService {
                     HttpStatus.NOT_ACCEPTABLE);
         }
     }
-
     @Override
     public void deleteCompte(Long ribCompte) throws CompteException {
         if (compteRepository.findCompteByRibCompte(ribCompte) == null) {

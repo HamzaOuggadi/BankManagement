@@ -5,8 +5,6 @@ import ma.atos.ma.atos.bankmanagement.Dtos.PersonnePhysiqueDto;
 import ma.atos.ma.atos.bankmanagement.entities.PersonneMorale;
 import ma.atos.ma.atos.bankmanagement.entities.PersonnePhysique;
 
-import ma.atos.ma.atos.bankmanagement.entities.Tier;
-import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
 import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.PersonneMoraleMapper;
 import ma.atos.ma.atos.bankmanagement.mappers.PersonnePhysiqueMapper;
@@ -48,10 +46,19 @@ public class TierServiceImpl implements TierService {
     public PersonneMoraleDto getPersonneMorale(Long id) throws TierNotFoundExeption {
         PersonneMorale pp = (PersonneMorale) tierRepository.findByTierTypeEqualsAndIdClientEquals("PM", id);
         log.info("ID du tiers est " + id);
+        PersonneMorale personneMorale = (PersonneMorale) tierRepository.findByTierTypeEqualsAndIdClientEquals("PM", id);
+        if(personneMorale==null){
+            throw   new TierNotFoundExeption("Personne Morale not found ","Tier.not.found.exception");}
+        return personneMoraleMapper.personneToPersonneDto(personneMorale);
+    }
+   /* @Override
+    public PersonneMoraleDto getPersonneMorale(Long id) throws TierNotFoundExeption {
+        PersonneMorale pp = (PersonneMorale) tierRepository.findByTierTypeEqualsAndIdClientEquals("PM", id);
+        log.info("ID du tiers est " + id);
         PersonneMorale personneMorale = (PersonneMorale) tierRepository.findById(id).orElseThrow(() ->
                 new TierNotFoundExeption(messageSource.getMessage("Tier.not.found.exception",new Object[]{}, Locale.getDefault())));
         return personneMoraleMapper.personneToPersonneDto(personneMorale);
-    }
+    }*/
     @Override
     public PersonneMoraleDto savePersonneMorale(PersonneMoraleDto personneMoraleDto) {
         PersonneMorale personneMorale =personneMoraleMapper.PmDtoToPm(personneMoraleDto);
@@ -59,9 +66,18 @@ public class TierServiceImpl implements TierService {
         return personneMoraleMapper.personneToPersonneDto(savePersonneMorale);
     }
     @Override
-    public void deletPersonneMorale(long id) {
-        tierRepository.deleteById(id);
+    public int deletPersonneMorale(long id)throws TierNotFoundExeption
+    {
+        if(tierRepository.findByTierTypeEqualsAndIdClientEquals("PM", id)==null){
+
+            throw new TierNotFoundExeption("Personne Morale not found ","Tier.not.found.exception");
+        }
+        else{
+            tierRepository.deleteById(id);
+        }
+        return 1;
     }
+
     @Override
     public List<PersonnePhysiqueDto> getAllPersonnePhysique() {
         List<PersonnePhysique> personnePhysiques= tierRepository.findPPByTierType("PP");
@@ -75,37 +91,26 @@ public class TierServiceImpl implements TierService {
     public PersonnePhysiqueDto getPersonnePhysique(Long id) throws TierNotFoundExeption {
         PersonnePhysique pp = (PersonnePhysique) tierRepository.findByTierTypeEqualsAndIdClientEquals("PP", id);
         log.info("ID du tiers est " + id);
-        PersonnePhysique personnePhysique = (PersonnePhysique) tierRepository.findById(id).orElseThrow(() ->
-                new TierNotFoundExeption("Tier not found ","Tier.not.found.exception"));
+        PersonnePhysique personnePhysique = (PersonnePhysique) tierRepository.findByTierTypeEqualsAndIdClientEquals("PP", id);
+              if(personnePhysique==null){
+             throw    new TierNotFoundExeption("Personne Physique not found ","Tier.not.found.exception");}
         return personnePhysiqueMapper.personnePhysiqueToPersonnePhysiqueDto(personnePhysique);
     }
     @Override
     public PersonnePhysiqueDto savePersonnePhysique(PersonnePhysiqueDto personnePhysiqueDto) {
         PersonnePhysique personnePhysique =personnePhysiqueMapper.PpDtoToPp(personnePhysiqueDto);
-        PersonnePhysique savePersonnePhysique=  tierRepository.save(personnePhysique);
+        PersonnePhysique savePersonnePhysique=tierRepository.save(personnePhysique);
         return personnePhysiqueMapper.personnePhysiqueToPersonnePhysiqueDto(savePersonnePhysique);
     }
     @Override
-    public void deletPersonnePhysique(long id) throws TierNotFoundExeption {
-        if (tierRepository.findById(id) ==null) {
-
-            throw new TierNotFoundExeption("Tier not found ","Tier.not.found.exception");
-        } else {
+    public int deletPersonnePhysique(long id) throws TierNotFoundExeption {
+        if(tierRepository.findByTierTypeEqualsAndIdClientEquals("PP", id)==null){
+            throw new TierNotFoundExeption("Personne Physique not found ","Tier.not.found.exception");
+        }
+        else{
             tierRepository.deleteById(id);
         }
+        return 1;
     }
 
-  /*  @Override
-    public TierDto getTier(long Id) throws TierNotFoundExeption {
-
-        Tier tier = tierRepository.findById(Id)
-                .orElseThrow(() -> new TierNotFoundExeption("Tier not found"));
-
-        if (tier instanceof PersonnePhysique) {
-            PersonnePhysique personnePhysique = (PersonnePhysique) tier;
-            return tierRepository.personnePhysiqueToPersonnePhysiqueDto(personnePhysique);
-        } else {
-            PersonneMorale personneMorale = (PersonneMorale) tier;
-            return tierRepository.personneToPersonneDto(personneMorale);
-        }
-    }*/ }
+ }

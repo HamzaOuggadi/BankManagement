@@ -10,10 +10,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+
+import ma.atos.ma.atos.bankmanagement.Dtos.DepotDto;
+import ma.atos.ma.atos.bankmanagement.Dtos.OperationDto;
+import ma.atos.ma.atos.bankmanagement.Dtos.PersonnePhysiqueDto;
+import ma.atos.ma.atos.bankmanagement.Dtos.VirementDto;
+import ma.atos.ma.atos.bankmanagement.services.OperationService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/operations")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
+
 public class OperationController {
 
     @Autowired
@@ -35,6 +51,7 @@ public class OperationController {
     }
 
     @GetMapping("/{id}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<OperationDto> getOperationById(@PathVariable Long id) {
         OperationDto operation = operationService.getOperationById(id);
 
@@ -42,11 +59,11 @@ public class OperationController {
             return ResponseEntity.notFound().build();
         } else {
             return ResponseEntity.ok(operation);
-
         }
     }
 
     @GetMapping("/type/{typeOperation}")
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     public ResponseEntity<List<OperationDto>> getOperationsByTypeOperation(
             @PathVariable String typeOperation) {
         List<OperationDto> operations = operationService.getOperationsByTypeOperation(typeOperation);
@@ -56,26 +73,27 @@ public class OperationController {
         return ResponseEntity.ok(operations);
     }
 
+//    @PostMapping
+//    public ResponseEntity<OperationDto> createOperation(@RequestBody OperationDto operationDto) {
+//        OperationDto createdOperation = operationService.createOperation(operationDto);
+//        return ResponseEntity.status(HttpStatus.OK).body(createdOperation);
+//    }
+
     @PostMapping
-    public ResponseEntity<OperationDto> createOperation(@RequestBody OperationDto operationDto) {
+    public ResponseEntity<Map<String, Object>> createOperation(@RequestBody OperationDto operationDto) {
         OperationDto createdOperation = operationService.createOperation(operationDto);
-        return ResponseEntity.status(HttpStatus.OK).body(createdOperation);
-    }
-
-    @PostMapping("/saveVirement")
-    @ResponseBody
-    public VirementDto saveVirement(@RequestBody VirementDto request) {
-        return operationService.createVirement(request);
-    }
-
-    @PostMapping("/saveDepot")
-    @ResponseBody
-    public DepotDto saveDepot(@RequestBody DepotDto request) {
-        return operationService.createDepot(request);
+        Map<String, Object> response = new HashMap<>();
+        response.put("status", "success");
+        response.put("message", "Operation created successfully");
+        response.put("operationId", createdOperation.getIdOperation());
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
 
-    @GetMapping("/getOperations/{ribCompte}")
+
+
+
+    @GetMapping("/getByRIB/{ribCompte}")
     public ResponseEntity<List<OperationDto>> getOperationsByRibCompte(@PathVariable Long ribCompte) {
         List<OperationDto> operationDtos = operationService.getOperationsByRibCompte(ribCompte);
         if (operationDtos == null) {
@@ -83,6 +101,8 @@ public class OperationController {
         }
         return ResponseEntity.ok(operationDtos);
     }
+
+
 }
 
 

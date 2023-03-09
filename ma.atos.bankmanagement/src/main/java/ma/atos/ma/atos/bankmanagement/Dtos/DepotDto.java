@@ -11,26 +11,31 @@ import javax.persistence.Entity;
 import java.util.Date;
 
 @Data
-public class DepotDto{
+public class DepotDto extends OperationDto{
 
-    private double montant;
-    private String description;
-    private Date dateOperation;
-    private SensOperation sensOperation;
-
+//    private double montant;
+//    private String description;
+//    private Date dateOperation;
+//    private SensOperation sensOperation;
 //  private String typeOperation;
 //    @JsonIgnore
-//    private Long idCompte;
-
+    private Long idCompte;
     private Long ribCompte;
     private SourceDepot sourceDepot;
 
+
+//    public Long getRibCompte() {
+//        return ribCompte;
+//    }
+
+//    public void setRibCompte(Long ribCompte) {
+//        this.ribCompte = ribCompte;
+//    }
+
+
+    @JsonIgnore
     public Long getRibCompte() {
         return ribCompte;
-    }
-
-    public void setRibCompte(Long ribCompte) {
-        this.ribCompte = ribCompte;
     }
 
 }

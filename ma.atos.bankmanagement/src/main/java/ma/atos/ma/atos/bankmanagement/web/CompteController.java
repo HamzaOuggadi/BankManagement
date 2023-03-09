@@ -1,10 +1,13 @@
 package ma.atos.ma.atos.bankmanagement.web;
 
+import javafx.geometry.Pos;
 import lombok.AllArgsConstructor;
 import ma.atos.ma.atos.bankmanagement.Dtos.CompteDto;
 import ma.atos.ma.atos.bankmanagement.Dtos.responses.GenericResponse;
+import ma.atos.ma.atos.bankmanagement.entities.Post;
 import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
 import ma.atos.ma.atos.bankmanagement.exceptions.GenResponse;
+import ma.atos.ma.atos.bankmanagement.feignproxies.SitexProxy;
 import ma.atos.ma.atos.bankmanagement.services.CompteServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -20,6 +23,7 @@ import java.util.Locale;
 public class CompteController {
     CompteServiceImpl compteService;
     MessageSource messageSource;
+    SitexProxy sitexProxy;
 
     @GetMapping("/comptes")
     public ResponseEntity<List<CompteDto>> listCompte() throws CompteException {
@@ -50,5 +54,19 @@ public class CompteController {
         response.setDescriptionFront(messageSource.getMessage("account.deleted.success", new Object[]{}, Locale.getDefault()));
         return ResponseEntity.ok(response);
     }
+/*    @GetMapping("/posts")
+    public ResponseEntity<List<Post>> getPosts() {
+        List<Post> posts = sitexProxy.getPosts();
+        return ResponseEntity.ok(posts);
+    }
 
+    @GetMapping("/posts/{id}")
+    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
+        return ResponseEntity.ok(sitexProxy.getPostById(id));
+    }*/
+
+    @GetMapping("/ComptesDTO")
+    public ResponseEntity<List<CompteDto>> getComptesDTO() {
+        return ResponseEntity.ok(sitexProxy.getComptes());
+    }
 }
