@@ -15,6 +15,12 @@ public class RestrictionException extends RuntimeException{
     public RestrictionException(String message){
         super(message);
     }
+
+    public RestrictionException(String message, HttpStatus httpStatus){
+        super();
+        this.message = message;
+        this.httpStatus = httpStatus;
+    }
     public RestrictionException(String message, String code){
         super();
         this.message=message;

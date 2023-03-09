@@ -46,13 +46,13 @@ RestrictionServiceImpl implements RestrictionService {
     }
     @Override
     public void deleteRestriction(Long idRestriction) throws RestrictionException {
-        if (restrictionRepo.findById(idRestriction)== null){
-            throw new RestrictionException(
-                    messageSource.getMessage("Restriction.not.found.message", new Object[]{}
-                            , Locale.getDefault()));
-        }
-        else{
+        restrictionRepo.findById(idRestriction).orElseThrow(()-> new RestrictionException(
+                messageSource.getMessage("Restriction.not.found.message", new Object[]{}
+                        , Locale.getDefault()), HttpStatus.OK) );
+        try {
             restrictionRepo.deleteById(idRestriction);
+        } catch (Exception e) {
+            throw new  RestrictionException("Failed to delete restriction !");
         }
     }
 }

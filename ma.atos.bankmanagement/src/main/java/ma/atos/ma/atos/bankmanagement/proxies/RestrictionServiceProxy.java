@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
-@RibbonClient(name = "bankmanagment")
+
 @FeignClient(name = "restriction-service", url = "${url.bankmanagment}")
 
 public interface RestrictionServiceProxy {

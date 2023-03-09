@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class ConsumerRMQ {
 
-    @RabbitListener(queues = "${eventqueue}")
+    @RabbitListener(queues = "incoming")
     public void receive(@Payload String message){
 
         System.out.println("this a message from rmq : "+message);
