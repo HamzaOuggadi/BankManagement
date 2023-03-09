@@ -112,25 +112,5 @@ public class TierServiceImpl implements TierService {
         }
         return 1;
     }
-  /*BankAccount bankAccount = bankAccountRepository.findById(accountId).orElse(null);
-		if(bankAccount==null) {
-        throw new BankAccountNotFoundException("Bank Account Not Found");
-    }*/
-   /*     @Override
-    public void deletPersonnePhysique(long id) {
-        tierRepository.findById(id).orElse(null);*/
 
-  /*  @Override
-    public TierDto getTier(long Id) throws TierNotFoundExeption {
-
-        Tier tier = tierRepository.findById(Id)
-                .orElseThrow(() -> new TierNotFoundExeption("Tier not found"));
-
-        if (tier instanceof PersonnePhysique) {
-            PersonnePhysique personnePhysique = (PersonnePhysique) tier;
-            return tierRepository.personnePhysiqueToPersonnePhysiqueDto(personnePhysique);
-        } else {
-            PersonneMorale personneMorale = (PersonneMorale) tier;
-            return tierRepository.personneToPersonneDto(personneMorale);
-        }
-    }*/ }
+ }
