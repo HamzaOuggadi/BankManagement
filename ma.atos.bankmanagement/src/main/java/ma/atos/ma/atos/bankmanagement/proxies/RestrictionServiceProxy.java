@@ -3,16 +3,13 @@ package ma.atos.ma.atos.bankmanagement.proxies;
 import ma.atos.ma.atos.bankmanagement.Dtos.RestrictionDto;
 import ma.atos.ma.atos.bankmanagement.entities.Restriction;
 import ma.atos.ma.atos.bankmanagement.exceptions.RestrictionException;
-import org.springframework.cloud.netflix.ribbon.RibbonClient;
-import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.List;
-@RibbonClient(name = "bankmanagment")
-@FeignClient(name = "restriction-service", url = "${url.bankmanagment}")
+//@RibbonClient(name = "bankmanagment")
+//@FeignClient(name = "restriction-service", url = "${url.bankmanagment}")
 
 public interface RestrictionServiceProxy {
     @GetMapping("")
