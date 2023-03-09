@@ -13,8 +13,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @Log4j2
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
-
-        @ExceptionHandler(Exception.class)
+    @ExceptionHandler(Exception.class)
         public ResponseEntity<GenericResponse> handleException(Exception e) {
             GenericResponse result = new GenericResponse();
 
@@ -24,8 +23,46 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
             result.setDescription(ErrorStatus.TECHNICAL_ERROR.description());
 
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+    }
+    @ExceptionHandler(TierNotFoundExeption.class)
+    public ResponseEntity<GenericResponse> handleException(TierNotFoundExeption ex){
+        GenericResponse result = new GenericResponse();
+        log.error(ex.getMessage(), ex);
+        ex.printStackTrace();
+        result.setStatusCode(ex.getCode());
+        result.setDescription(ex.getMessage());
+        return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
+    @ExceptionHandler(RestrictionException.class)
+    public ResponseEntity<GenericResponse> handleException(RestrictionException ex){
+            GenericResponse result = new GenericResponse();
+            log.error(ex.getMessage(), ex);
+            ex.printStackTrace();
+            ex.setMessage(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
+            ex.setMessage(ErrorStatus.NOT_FOUND.description());
+            return ResponseEntity.status(HttpStatus.OK).body(result);
+    }
 
+//    @ExceptionHandler(OperationNotFoundException.class)
+//    public ResponseEntity<GenericResponse> handleOperationException(Exception e) {
+//            GenericResponse result = new GenericResponse();
+//            log.error(e.getMessage(), e);
+//            e.printStackTrace();
+//            result.setStatusCode(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
+//            result.setDescription(ErrorStatus.TECHNICAL_ERROR.description());
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
+//    }
 
+    @ExceptionHandler(CustomerException.class)
+    public ResponseEntity<GenericResponse> handleCustomerException(CustomerException ex) {
+        GenericResponse result = new GenericResponse();
+        result.setDescriptionForOperation(ex.getMessage());
+        result.setError(true);
+        result.setDescription(ex.getMessage());
+        result.setStatusCode(String.valueOf(HttpStatus.NOT_FOUND));
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(result);
     }
 
     @ExceptionHandler(CompteException.class)
@@ -39,7 +76,5 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
             response.setStatusCode(e.getCode());
             return ResponseEntity.status(e.getHttpStatus()).body(response);
     }
-
-
 
 }

@@ -6,6 +6,7 @@ import ma.atos.ma.atos.bankmanagement.entities.Restriction;
 import ma.atos.ma.atos.bankmanagement.exceptions.RestrictionException;
 import ma.atos.ma.atos.bankmanagement.mappers.RestrictionMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.RestrictionRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -13,24 +14,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-
 @Service
 @AllArgsConstructor
-public class RestrictionServiceImpl implements RestrictionService {
+public class
+RestrictionServiceImpl implements RestrictionService {
+    @Autowired
     RestrictionRepository restrictionRepo;
-
+    @Autowired
     RestrictionMapper restrictionMapper;
+    @Autowired
     MessageSource messageSource;
 
 
     @Override
     public List<RestrictionDto> getResctrictions() {
         List<Restriction> restrictionDtoList = restrictionRepo.findAll();
-        List<RestrictionDto> result = new ArrayList<>();
+        List<RestrictionDto> restrictionDtos = new ArrayList<>();
         restrictionDtoList.stream().forEach(restriction -> {
-            result.add(restrictionMapper.restrictionToRestrictionDto(restriction));
+            restrictionDtos.add(restrictionMapper.restrictionToRestrictionDto(restriction));
         });
-        return result;
+        return restrictionDtos;
     }
     @Override
     public Restriction getRestrictionById(Long idRestriction){
@@ -45,15 +48,14 @@ public class RestrictionServiceImpl implements RestrictionService {
     public void deleteRestriction(Long idRestriction) throws RestrictionException {
         if (restrictionRepo.findById(idRestriction)== null){
             throw new RestrictionException(
-                    messageSource.getMessage("Restriction.not.found.message", new Object[]{}, Locale.getDefault())
-                            , HttpStatus.BAD_REQUEST);
+                    messageSource.getMessage("Restriction.not.found.message", new Object[]{}
+                            , Locale.getDefault()));
         }
         else{
             restrictionRepo.deleteById(idRestriction);
         }
     }
 }
-
 
 
 
