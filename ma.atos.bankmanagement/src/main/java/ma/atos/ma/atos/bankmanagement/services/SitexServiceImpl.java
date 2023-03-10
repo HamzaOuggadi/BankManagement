@@ -1,6 +1,7 @@
 package ma.atos.ma.atos.bankmanagement.services;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import ma.atos.ma.atos.bankmanagement.Dtos.SitexDto;
 import ma.atos.ma.atos.bankmanagement.entities.Sitex;
 import ma.atos.ma.atos.bankmanagement.exceptions.SitexExeption;
@@ -19,7 +20,8 @@ import java.util.Locale;
 @Transactional
 @Service
 @AllArgsConstructor
-public class SitexServiceImpl implements SitexService{
+@Slf4j
+public class SitexServiceImpl implements SitexService {
 
     @Autowired
     SitexRepository sitexRepository;
@@ -33,39 +35,47 @@ public class SitexServiceImpl implements SitexService{
     public List<SitexDto> listSitex() throws SitexExeption {
         List<Sitex> sitexes = sitexRepository.findAll();
         List<SitexDto> sitexDtos = new ArrayList<>();
-        if(!CollectionUtils.isEmpty(sitexes)) {
+        if (!CollectionUtils.isEmpty(sitexes)) {
             sitexes.stream().forEach(sitex -> {
                 sitexDtos.add(sitexMapper.sitexToSitexDto(sitex));
             });
-        }else{
-                throw new SitexExeption(messageSource.getMessage("sitex.not.found.message",new Object[]{}, Locale.getDefault()));
-            }
-            return  sitexDtos;
+        } else {
+            throw new SitexExeption(messageSource.getMessage("sitex.not.found.message", new Object[]{}, Locale.getDefault()));
         }
+        return sitexDtos;
+    }
 
     @Override
     public SitexDto getSitex(Long idSitex) {
         Sitex sitex = sitexRepository.findById(idSitex).get();
         SitexDto sitexDto = sitexMapper.sitexToSitexDto(sitex);
-        return  sitexDto;
+        return sitexDto;
     }
 
 
-
     @Override
-    public Sitex createSitex(SitexDto sitexDto) {
-      Sitex sitex = sitexMapper.sitexDtoToSitex(sitexDto);
-      return sitexRepository.save(sitex);
-    }
-
-    @Override
-    public void deleteSitex(Long idSitex) throws SitexExeption{
-        if(!sitexRepository.findById(idSitex).isPresent()){
+    public void createSitex(SitexDto sitexDto) throws SitexExeption {
+        Sitex sitex = sitexMapper.sitexDtoToSitex(sitexDto);
+/*        Sitex save = sitexRepository.save(sitex);
+        log.info(save.toString());*/
+        try {
+            sitexRepository.save(sitex);
+        } catch (Exception e) {
             throw new SitexExeption(
-                    messageSource.getMessage("sitex.not.found.message",new Object[]{}, Locale.getDefault())
+                    messageSource.getMessage("sitex.creation.failed.message", new Object[]{}, Locale.getDefault())
             );
         }
-        else{
+
+    }
+
+    @Override
+    public void deleteSitex(Long idSitex) throws SitexExeption {
+
+        if (!sitexRepository.findById(idSitex).isPresent()) {
+            throw new SitexExeption(
+                    messageSource.getMessage("sitex.not.found.message", new Object[]{}, Locale.getDefault())
+            );
+        } else {
             sitexRepository.deleteById(idSitex);
         }
 
