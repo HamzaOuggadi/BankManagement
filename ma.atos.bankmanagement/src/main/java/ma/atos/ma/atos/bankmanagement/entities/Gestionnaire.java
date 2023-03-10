@@ -6,14 +6,14 @@ import java.util.List;
 @Data
 @Entity
 @Table(name = "Gestionnaire",uniqueConstraints =
-        {@UniqueConstraint( columnNames = {"matricule"})}
+        {@UniqueConstraint( columnNames = {"numGestionnaire"})}
 )
 public class Gestionnaire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String matricule;
+    private Long idGestionnaire;
+    private String numGestionnaire;
     private String nom;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.REMOVE)
     private List<Compte> comptes;
 }

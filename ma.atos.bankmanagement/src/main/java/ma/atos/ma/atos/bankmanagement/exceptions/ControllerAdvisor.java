@@ -34,13 +34,13 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
     @ExceptionHandler(RestrictionException.class)
-    public ResponseEntity<GenericResponse> handleException(RestrictionException ex){
+    public ResponseEntity<GenericResponse> handleRestrictionException(RestrictionException ex){
             GenericResponse result = new GenericResponse();
             log.error(ex.getMessage(), ex);
             ex.printStackTrace();
-            ex.setMessage(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
-            ex.setMessage(ErrorStatus.NOT_FOUND.description());
-            return ResponseEntity.status(HttpStatus.OK).body(result);
+            result.setDescription(ex.getMessage());
+            result.setStatusCode(ex.getCode());
+            return ResponseEntity.status(ex.getHttpStatus()).body(result);
     }
 
 //    @ExceptionHandler(OperationNotFoundException.class)
@@ -75,6 +75,17 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
             response.setDescriptionFront(e.getMessageFront());
             response.setStatusCode(e.getCode());
             return ResponseEntity.status(e.getHttpStatus()).body(response);
+    }
+
+    @ExceptionHandler(GestionnaireException.class)
+    public ResponseEntity<GenericResponse> handleGestionnaireException(GestionnaireException exp){
+         GenericResponse response = new GenericResponse();
+         log.error(exp.getMessage(),exp);
+         exp.printStackTrace();
+         response.setDescription(exp.getMessage());
+         response.setStatusCode(exp.getCode());
+         return ResponseEntity.status(exp.getHttpStatus()).body(response);
+
     }
 
 }

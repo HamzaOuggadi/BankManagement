@@ -1,11 +1,8 @@
 package ma.atos.ma.atos.bankmanagement.services;
 
 
-import jdk.nashorn.internal.runtime.options.Option;
 import lombok.extern.slf4j.Slf4j;
 import ma.atos.ma.atos.bankmanagement.Dtos.CompteDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.SitexDto;
-import ma.atos.ma.atos.bankmanagement.config.MessageConfiguration;
 import ma.atos.ma.atos.bankmanagement.entities.Compte;
 import ma.atos.ma.atos.bankmanagement.entities.Tier;
 import ma.atos.ma.atos.bankmanagement.enums.ApiStatusCode;
@@ -18,12 +15,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
 @Service
 @Slf4j
@@ -46,7 +44,7 @@ public class CompteServiceImpl implements CompteService {
     @Override
     public List<CompteDto> listComptes() throws CompteException {
         List<Compte> comptes = compteRepository.findAll();
-        List<CompteDto> compteDtos = new ArrayList<>();;
+        List<CompteDto> compteDtos = new ArrayList<>();
         if(!CollectionUtils.isEmpty(comptes)) {
             comptes.stream().forEach(compte -> {
                 compteDtos.add(compteMapper.compteToCompteDto(compte));

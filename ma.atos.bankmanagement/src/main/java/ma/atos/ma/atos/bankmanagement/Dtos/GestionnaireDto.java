@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class GestionnaireDto {
-
+    private String nom;
     private String numGestionnaire;
 
 }
