@@ -37,12 +37,6 @@ public class CompteServiceImpl implements CompteService {
 
     @Autowired MessageSource messageSource;
 
-    @Value("${sitex.uri.host}")
-    private String hostSitex;
-    @Value("${sitex.create.action}")
-    private String actionCreateSitex;
-
-
     @Override
     public List<CompteDto> listComptes() throws CompteException {
         List<Compte> comptes = compteRepository.findAll();
@@ -126,6 +120,7 @@ public class CompteServiceImpl implements CompteService {
     public void createCompte(CompteDto compteDto) throws CompteException {
         Compte compte = compteMapper.compteDtoToCompte(compteDto);
         try {
+            compte.setDateCreation(new Date());
             compteRepository.save(compte);
         } catch (Exception e) {
             throw new CompteException(
