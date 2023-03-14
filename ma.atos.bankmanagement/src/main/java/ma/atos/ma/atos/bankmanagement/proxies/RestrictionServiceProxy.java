@@ -3,7 +3,6 @@ package ma.atos.ma.atos.bankmanagement.proxies;
 import ma.atos.ma.atos.bankmanagement.Dtos.RestrictionDto;
 import ma.atos.ma.atos.bankmanagement.entities.Restriction;
 import ma.atos.ma.atos.bankmanagement.exceptions.RestrictionException;
-import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

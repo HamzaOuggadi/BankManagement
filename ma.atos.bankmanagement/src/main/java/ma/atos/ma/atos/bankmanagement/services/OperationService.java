@@ -8,6 +8,9 @@ import java.util.List;
 
 public interface OperationService {
 
+    // Version 2 to creat OpertionDto
+    OperationDto createOperation(OperationDto operationDto);
+
     List<OperationDto> getAllOperations();
 
     List<OperationDto> getOperationsByRibCompte(Long ribCompte);
@@ -15,13 +18,6 @@ public interface OperationService {
     List<OperationDto> getOperationsByTypeOperation(String typeOperation);
 
     OperationDto getOperationById(Long id);
-
-    public VirementDto createVirement(VirementDto virementDto);
-
-    public DepotDto createDepot(DepotDto depotDto);
-
-    // Version 2 to creat operation with OperaionDto
-    OperationDto createOperation(OperationDto operationDto);
 
 
 

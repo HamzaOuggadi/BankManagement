@@ -5,9 +5,8 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import ma.atos.ma.atos.bankmanagement.enums.SourceDepot;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @DiscriminatorValue("depot")
 @Data
@@ -19,7 +18,9 @@ import javax.persistence.Table;
 
 public class Depot extends Operation{
 
-    protected SourceDepot sourceDepot;
+    @Enumerated(EnumType.STRING) // specify that the enum should be persisted as a string
+    private SourceDepot sourceDepot;
+
 
 }
 

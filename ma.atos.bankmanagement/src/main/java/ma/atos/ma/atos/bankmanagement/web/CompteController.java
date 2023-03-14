@@ -1,15 +1,12 @@
 package ma.atos.ma.atos.bankmanagement.web;
 
-
 import lombok.AllArgsConstructor;
 import ma.atos.ma.atos.bankmanagement.Dtos.CompteDto;
 import ma.atos.ma.atos.bankmanagement.Dtos.responses.GenericResponse;
-import ma.atos.ma.atos.bankmanagement.entities.Post;
 import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
 import ma.atos.ma.atos.bankmanagement.exceptions.GenResponse;
 import ma.atos.ma.atos.bankmanagement.feignproxies.SitexProxy;
 import ma.atos.ma.atos.bankmanagement.services.CompteServiceImpl;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

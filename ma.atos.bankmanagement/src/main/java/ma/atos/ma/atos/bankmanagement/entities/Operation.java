@@ -13,6 +13,7 @@ import java.util.Date;
 
 public class Operation {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     protected Long idOperation;
     protected double montant;
     protected String description;
@@ -32,6 +33,7 @@ public class Operation {
     public void setCompte(Compte compte) {
         this.compte = compte;
     }
+
 }
 
 
