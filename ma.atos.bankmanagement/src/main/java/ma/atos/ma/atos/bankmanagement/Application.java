@@ -1,4 +1,5 @@
 package ma.atos.ma.atos.bankmanagement;
+import ma.atos.ma.atos.bankmanagement.config.Credential;
 import ma.atos.ma.atos.bankmanagement.entities.PersonneMorale;
 import ma.atos.ma.atos.bankmanagement.entities.PersonnePhysique;
 import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
@@ -16,12 +17,14 @@ import ma.atos.ma.atos.bankmanagement.services.OperationServiceImpl;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
 import java.util.Date;
 
 @SpringBootApplication
 @Slf4j
+@EnableConfigurationProperties(Credential.class)
 public class Application {
 
 	@Autowired
@@ -34,18 +37,13 @@ public class Application {
 @Bean
 CommandLineRunner startCompte(OperationServiceImpl operationService,
 						OperationRepository operationRepository,
-						CompteService compteService) {
+						CompteService compteService,
+							  Credential credential) {
 	return args -> {
-		for (int i=0; i<10; i++) {
-			CompteDto compteDto = new CompteDto();
-			compteDto.setRibCompte(i+123456789L);
-			log.info("itération : " + i + "rib : " + compteDto.getRibCompte());
-			compteDto.setBalance(Math.random()*100000);
-			compteDto.setDevise("MAD");
-			compteDto.setDateCreation(new Date());
-			compteDto.setTypeCompte(TypeCompte.COMPTE_COURANT);
-			compteService.createCompte(compteDto);
-		}
+
+
+		log.info("username is {}",credential.getUsername());
+		log.info("password is {}",credential.getPassword());
 	};
 }
 
