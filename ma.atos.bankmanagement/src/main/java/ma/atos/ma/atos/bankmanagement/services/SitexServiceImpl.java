@@ -1,5 +1,4 @@
 package ma.atos.ma.atos.bankmanagement.services;
-
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import ma.atos.ma.atos.bankmanagement.Dtos.SitexDto;
@@ -12,7 +11,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -46,10 +44,19 @@ public class SitexServiceImpl implements SitexService {
     }
 
     @Override
-    public SitexDto getSitex(Long idSitex) {
-        Sitex sitex = sitexRepository.findById(idSitex).get();
-        SitexDto sitexDto = sitexMapper.sitexToSitexDto(sitex);
-        return sitexDto;
+    public SitexDto getSitex(Long idSitex) throws SitexExeption {
+        Sitex sitex = sitexRepository.findSitexByIdSitex(idSitex);
+        if(sitex==null){
+            throw new SitexExeption(
+                    messageSource.getMessage("sitex.not.found.message", new Object[]{idSitex}, Locale.getDefault()),
+                    messageSource.getMessage("sitex.not.found.message", new Object[]{}, Locale.getDefault())
+            );
+        }
+        else{
+            SitexDto sitexDto = sitexMapper.sitexToSitexDto(sitex);
+            return sitexDto;
+        }
+
     }
 
 
@@ -70,12 +77,13 @@ public class SitexServiceImpl implements SitexService {
 
     @Override
     public void deleteSitex(Long idSitex) throws SitexExeption {
-
-        if (!sitexRepository.findById(idSitex).isPresent()) {
+        System.out.println(sitexRepository.findById(idSitex).get());
+        if(!sitexRepository.findById(idSitex).isPresent()){
             throw new SitexExeption(
-                    messageSource.getMessage("sitex.not.found.message", new Object[]{}, Locale.getDefault())
+                    messageSource.getMessage("sitex.not.found.message",new Object[]{}, Locale.getDefault())
             );
-        } else {
+        }
+        else{
             sitexRepository.deleteById(idSitex);
         }
 

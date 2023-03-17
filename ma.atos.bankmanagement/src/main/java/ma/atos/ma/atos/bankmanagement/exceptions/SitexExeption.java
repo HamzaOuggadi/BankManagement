@@ -17,6 +17,11 @@ public class SitexExeption extends Exception{
        super();
        this.message=message;
    }
+    public SitexExeption(String message, String messageFront) {
+        super();
+        this.message = message;
+        this.messageFront = messageFront;
+    }
     public SitexExeption(String message, String messageFront , ApiStatusCode code) {
         super();
         this.message = message;

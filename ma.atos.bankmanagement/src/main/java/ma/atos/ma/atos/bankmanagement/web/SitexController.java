@@ -23,7 +23,7 @@ public class SitexController {
     MessageSource messageSource;
 
     @GetMapping(path = "/{idSitex}")
-    public SitexDto getSitex(@PathVariable(name = "idSitex") Long idSitex) {
+    public SitexDto getSitex(@PathVariable(name = "idSitex") Long idSitex) throws SitexExeption {
        return sitexService.getSitex(idSitex);
     }
     @GetMapping("")
@@ -39,7 +39,7 @@ public class SitexController {
         return ResponseEntity.ok(result);
 
     }
-    @DeleteMapping("delete/{idSitex}")
+    @DeleteMapping("/delete/{idSitex}")
     public ResponseEntity<GenResponse> deleteSitex(@PathVariable Long idSitex) throws SitexExeption {
         GenResponse response = new GenResponse();
         sitexService.deleteSitex(idSitex);

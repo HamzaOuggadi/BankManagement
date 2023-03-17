@@ -30,7 +30,7 @@ public class Application {
 		SpringApplication.run(Application.class, args);
 	}
 
-@Bean
+//@Bean
 CommandLineRunner startCompte(OperationServiceImpl operationService,
 						OperationRepository operationRepository,
 						CompteService compteService) {
