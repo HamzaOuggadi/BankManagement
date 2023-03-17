@@ -1,17 +1,12 @@
-package ma.atos.ma.atos.bankmanagement.services;
+package ma.atos.ma.atos.bankmanagement.services.impl;
 
 import lombok.AllArgsConstructor;
-import ma.atos.ma.atos.bankmanagement.Dtos.CompteDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.GestionnaireDto;
-import ma.atos.ma.atos.bankmanagement.entities.Compte;
+import ma.atos.ma.atos.bankmanagement.dtos.GestionnaireDto;
 import ma.atos.ma.atos.bankmanagement.entities.Gestionnaire;
-import ma.atos.ma.atos.bankmanagement.enums.ApiStatusCode;
-import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
 import ma.atos.ma.atos.bankmanagement.exceptions.GestionnaireException;
-import ma.atos.ma.atos.bankmanagement.mappers.CompteMapper;
 import ma.atos.ma.atos.bankmanagement.mappers.GestionnaireMapper;
-import ma.atos.ma.atos.bankmanagement.repositories.CompteRepository;
 import ma.atos.ma.atos.bankmanagement.repositories.GestionnaireRepository;
+import ma.atos.ma.atos.bankmanagement.services.GestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;

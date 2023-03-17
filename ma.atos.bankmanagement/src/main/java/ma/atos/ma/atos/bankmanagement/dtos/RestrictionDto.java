@@ -1,4 +1,4 @@
-package ma.atos.ma.atos.bankmanagement.Dtos;
+package ma.atos.ma.atos.bankmanagement.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

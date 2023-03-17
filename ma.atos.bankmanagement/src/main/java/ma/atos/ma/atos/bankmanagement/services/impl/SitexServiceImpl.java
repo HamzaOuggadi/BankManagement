@@ -1,12 +1,13 @@
-package ma.atos.ma.atos.bankmanagement.services;
+package ma.atos.ma.atos.bankmanagement.services.impl;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import ma.atos.ma.atos.bankmanagement.Dtos.SitexDto;
+import ma.atos.ma.atos.bankmanagement.dtos.SitexDto;
 import ma.atos.ma.atos.bankmanagement.entities.Sitex;
 import ma.atos.ma.atos.bankmanagement.exceptions.SitexExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.SitexMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.SitexRepository;
+import ma.atos.ma.atos.bankmanagement.services.SitexService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;

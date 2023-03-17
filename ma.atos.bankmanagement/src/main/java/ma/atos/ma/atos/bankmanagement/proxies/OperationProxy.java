@@ -1,11 +1,7 @@
-package ma.atos.ma.atos.bankmanagement.config;
+package ma.atos.ma.atos.bankmanagement.proxies;
 
 
-import ma.atos.ma.atos.bankmanagement.Dtos.DepotDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.OperationDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.VirementDto;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
-import org.springframework.cloud.openfeign.FeignClient;
+import ma.atos.ma.atos.bankmanagement.dtos.OperationDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

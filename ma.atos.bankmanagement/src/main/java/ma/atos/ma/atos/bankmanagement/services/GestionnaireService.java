@@ -1,5 +1,5 @@
 package ma.atos.ma.atos.bankmanagement.services;
-import ma.atos.ma.atos.bankmanagement.Dtos.GestionnaireDto;
+import ma.atos.ma.atos.bankmanagement.dtos.GestionnaireDto;
 import ma.atos.ma.atos.bankmanagement.entities.Gestionnaire;
 
 

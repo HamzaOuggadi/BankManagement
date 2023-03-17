@@ -1,9 +1,9 @@
-package ma.atos.ma.atos.bankmanagement.services;
+package ma.atos.ma.atos.bankmanagement.services.impl;
 
-import ma.atos.ma.atos.bankmanagement.Dtos.DepotDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.OperationDto;
+import ma.atos.ma.atos.bankmanagement.dtos.DepotDto;
+import ma.atos.ma.atos.bankmanagement.dtos.OperationDto;
 //import ma.atos.ma.atos.bankmanagement.Dtos.PersonneMoraleDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.VirementDto;
+import ma.atos.ma.atos.bankmanagement.dtos.VirementDto;
 import ma.atos.ma.atos.bankmanagement.entities.*;
 //import ma.atos.ma.atos.bankmanagement.exceptions.CompteNotFoundException;
 import ma.atos.ma.atos.bankmanagement.exceptions.CustomerException;
@@ -13,6 +13,7 @@ import ma.atos.ma.atos.bankmanagement.mappers.OperationMapper;
 import ma.atos.ma.atos.bankmanagement.mappers.VirementMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.CompteRepository;
 import ma.atos.ma.atos.bankmanagement.repositories.OperationRepository;
+import ma.atos.ma.atos.bankmanagement.services.OperationService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;

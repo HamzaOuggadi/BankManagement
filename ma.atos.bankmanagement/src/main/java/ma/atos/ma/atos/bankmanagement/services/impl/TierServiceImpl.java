@@ -1,7 +1,7 @@
-package ma.atos.ma.atos.bankmanagement.services;
+package ma.atos.ma.atos.bankmanagement.services.impl;
 import lombok.extern.slf4j.Slf4j;
-import ma.atos.ma.atos.bankmanagement.Dtos.PersonneMoraleDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.PersonnePhysiqueDto;
+import ma.atos.ma.atos.bankmanagement.dtos.PersonneMoraleDto;
+import ma.atos.ma.atos.bankmanagement.dtos.PersonnePhysiqueDto;
 import ma.atos.ma.atos.bankmanagement.entities.PersonneMorale;
 import ma.atos.ma.atos.bankmanagement.entities.PersonnePhysique;
 
@@ -9,31 +9,30 @@ import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.PersonneMoraleMapper;
 import ma.atos.ma.atos.bankmanagement.mappers.PersonnePhysiqueMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
+import ma.atos.ma.atos.bankmanagement.services.TierService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 @Slf4j
 public class TierServiceImpl implements TierService {
+
     @Autowired
-    MessageSource messageSource;
-@Autowired
-      PersonneMoraleMapper personneMoraleMapper;
-@Autowired
+    PersonneMoraleMapper personneMoraleMapper;
+
+    @Autowired
     PersonnePhysiqueMapper personnePhysiqueMapper;
-@Autowired
-   TierRepository tierRepository;
-  /*  @Override
-    public List<PersonneMoraleDto> getAllPersonneMorale() {
-        List<Tier> personneMorales= tierRepository.findByTierType("PM");
-        List<PersonneMoraleDto> personneMoraleDtos = personneMorales.stream().map(personneMorale ->
-                personneMoraleMapper.personneToPersonneDto((PersonneMorale) personneMorale)).collect(Collectors.toList());
-        return personneMoraleDtos;
-    }*/
+
+    @Autowired
+    TierRepository tierRepository;
+
+
+    /**
+     * This service allows to get all the customers.
+     * @return
+     */
     @Override
     public List<PersonneMoraleDto> getAllPersonneMorale() {
         List<PersonneMorale> personneMorales= tierRepository.findPMByTierType("PM");
@@ -42,6 +41,13 @@ public class TierServiceImpl implements TierService {
         personneMoraleDtos.add(personneMoraleMapper.personneToPersonneDto(personneMorale));
         });
         return personneMoraleDtos;}
+
+    /**
+     * This service allows to get one customer
+     * @param id
+     * @return
+     * @throws TierNotFoundExeption
+     */
     @Override
     public PersonneMoraleDto getPersonneMorale(Long id) throws TierNotFoundExeption {
         PersonneMorale pp = (PersonneMorale) tierRepository.findByTierTypeEqualsAndIdClientEquals("PM", id);
@@ -51,20 +57,29 @@ public class TierServiceImpl implements TierService {
             throw   new TierNotFoundExeption("Personne Morale not found ","Tier.not.found.exception");}
         return personneMoraleMapper.personneToPersonneDto(personneMorale);
     }
-   /* @Override
-    public PersonneMoraleDto getPersonneMorale(Long id) throws TierNotFoundExeption {
-        PersonneMorale pp = (PersonneMorale) tierRepository.findByTierTypeEqualsAndIdClientEquals("PM", id);
-        log.info("ID du tiers est " + id);
-        PersonneMorale personneMorale = (PersonneMorale) tierRepository.findById(id).orElseThrow(() ->
-                new TierNotFoundExeption(messageSource.getMessage("Tier.not.found.exception",new Object[]{}, Locale.getDefault())));
-        return personneMoraleMapper.personneToPersonneDto(personneMorale);
-    }*/
+
+
+    /**
+     * Create a customer
+     * @param personneMoraleDto
+     * @return
+     */
+
     @Override
     public PersonneMoraleDto savePersonneMorale(PersonneMoraleDto personneMoraleDto) {
         PersonneMorale personneMorale =personneMoraleMapper.PmDtoToPm(personneMoraleDto);
         PersonneMorale savePersonneMorale=  tierRepository.save(personneMorale);
         return personneMoraleMapper.personneToPersonneDto(savePersonneMorale);
     }
+
+
+    /**
+     * delete a customer
+     * @param id
+     * @return
+     * @throws TierNotFoundExeption
+     */
+
     @Override
     public int deletPersonneMorale(long id)throws TierNotFoundExeption
     {
@@ -78,6 +93,12 @@ public class TierServiceImpl implements TierService {
         return 1;
     }
 
+
+    /**
+     *
+     * @return
+     */
+
     @Override
     public List<PersonnePhysiqueDto> getAllPersonnePhysique() {
         List<PersonnePhysique> personnePhysiques= tierRepository.findPPByTierType("PP");
@@ -87,6 +108,14 @@ public class TierServiceImpl implements TierService {
         });
         return personnePhysiqueDtos;
     }
+
+
+    /**
+     *
+     * @param id
+     * @return
+     * @throws TierNotFoundExeption
+     */
     @Override
     public PersonnePhysiqueDto getPersonnePhysique(Long id) throws TierNotFoundExeption {
         PersonnePhysique pp = (PersonnePhysique) tierRepository.findByTierTypeEqualsAndIdClientEquals("PP", id);
@@ -96,15 +125,32 @@ public class TierServiceImpl implements TierService {
              throw    new TierNotFoundExeption("Personne Physique not found ","Tier.not.found.exception");}
         return personnePhysiqueMapper.personnePhysiqueToPersonnePhysiqueDto(personnePhysique);
     }
+
+
+    /**
+     *
+     * @param personnePhysiqueDto
+     * @return
+     */
     @Override
     public PersonnePhysiqueDto savePersonnePhysique(PersonnePhysiqueDto personnePhysiqueDto) {
         PersonnePhysique personnePhysique =personnePhysiqueMapper.PpDtoToPp(personnePhysiqueDto);
         PersonnePhysique savePersonnePhysique=tierRepository.save(personnePhysique);
         return personnePhysiqueMapper.personnePhysiqueToPersonnePhysiqueDto(savePersonnePhysique);
     }
+
+
+    /**
+     *
+     * @param id
+     * @return
+     * @throws TierNotFoundExeption
+     */
+
     @Override
     public int deletPersonnePhysique(long id) throws TierNotFoundExeption {
         if(tierRepository.findByTierTypeEqualsAndIdClientEquals("PP", id)==null){
+            // Use the message source
             throw new TierNotFoundExeption("Personne Physique not found ","Tier.not.found.exception");
         }
         else{

@@ -1,11 +1,12 @@
-package ma.atos.ma.atos.bankmanagement.services;
+package ma.atos.ma.atos.bankmanagement.services.impl;
 
 import lombok.AllArgsConstructor;
-import ma.atos.ma.atos.bankmanagement.Dtos.RestrictionDto;
+import ma.atos.ma.atos.bankmanagement.dtos.RestrictionDto;
 import ma.atos.ma.atos.bankmanagement.entities.Restriction;
 import ma.atos.ma.atos.bankmanagement.exceptions.RestrictionException;
 import ma.atos.ma.atos.bankmanagement.mappers.RestrictionMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.RestrictionRepository;
+import ma.atos.ma.atos.bankmanagement.services.RestrictionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;

@@ -1,8 +1,8 @@
-package ma.atos.ma.atos.bankmanagement.services;
+package ma.atos.ma.atos.bankmanagement.services.impl;
 
 
 import lombok.extern.slf4j.Slf4j;
-import ma.atos.ma.atos.bankmanagement.Dtos.CompteDto;
+import ma.atos.ma.atos.bankmanagement.dtos.CompteDto;
 import ma.atos.ma.atos.bankmanagement.entities.Compte;
 import ma.atos.ma.atos.bankmanagement.entities.Tier;
 import ma.atos.ma.atos.bankmanagement.enums.ApiStatusCode;
@@ -11,8 +11,8 @@ import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.CompteMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.CompteRepository;
 import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
+import ma.atos.ma.atos.bankmanagement.services.CompteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

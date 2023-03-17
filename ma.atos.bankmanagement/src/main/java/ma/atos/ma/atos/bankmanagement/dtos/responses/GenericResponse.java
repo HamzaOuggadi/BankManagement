@@ -1,4 +1,4 @@
-package ma.atos.ma.atos.bankmanagement.Dtos.responses;
+package ma.atos.ma.atos.bankmanagement.dtos.responses;
 
 
 import lombok.Data;

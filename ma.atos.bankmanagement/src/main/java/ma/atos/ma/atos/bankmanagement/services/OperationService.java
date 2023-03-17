@@ -1,8 +1,6 @@
 package ma.atos.ma.atos.bankmanagement.services;
 
-import ma.atos.ma.atos.bankmanagement.Dtos.DepotDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.OperationDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.VirementDto;
+import ma.atos.ma.atos.bankmanagement.dtos.OperationDto;
 
 import java.util.List;
 

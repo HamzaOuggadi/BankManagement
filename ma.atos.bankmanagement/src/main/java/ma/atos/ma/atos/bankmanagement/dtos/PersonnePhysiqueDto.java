@@ -1,12 +1,7 @@
-package ma.atos.ma.atos.bankmanagement.Dtos;
+package ma.atos.ma.atos.bankmanagement.dtos;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-import ma.atos.ma.atos.bankmanagement.entities.Compte;
-import ma.atos.ma.atos.bankmanagement.entities.Restriction;
 
-import javax.persistence.OneToMany;
 import java.util.Date;
 import java.util.List;
 

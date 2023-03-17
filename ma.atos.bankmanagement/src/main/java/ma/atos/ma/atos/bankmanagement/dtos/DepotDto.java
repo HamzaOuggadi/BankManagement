@@ -1,14 +1,8 @@
-package ma.atos.ma.atos.bankmanagement.Dtos;
+package ma.atos.ma.atos.bankmanagement.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import ma.atos.ma.atos.bankmanagement.entities.Operation;
-import ma.atos.ma.atos.bankmanagement.enums.SensOperation;
 import ma.atos.ma.atos.bankmanagement.enums.SourceDepot;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import java.util.Date;
 
 @Data
 public class DepotDto extends OperationDto{

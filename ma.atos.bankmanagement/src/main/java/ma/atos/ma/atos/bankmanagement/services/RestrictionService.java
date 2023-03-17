@@ -1,6 +1,6 @@
 package ma.atos.ma.atos.bankmanagement.services;
 
-import ma.atos.ma.atos.bankmanagement.Dtos.RestrictionDto;
+import ma.atos.ma.atos.bankmanagement.dtos.RestrictionDto;
 import ma.atos.ma.atos.bankmanagement.entities.Restriction;
 import ma.atos.ma.atos.bankmanagement.exceptions.RestrictionException;
 

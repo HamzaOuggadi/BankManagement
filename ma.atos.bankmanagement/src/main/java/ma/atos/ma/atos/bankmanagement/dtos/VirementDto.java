@@ -1,15 +1,9 @@
-package ma.atos.ma.atos.bankmanagement.Dtos;
+package ma.atos.ma.atos.bankmanagement.dtos;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import ma.atos.ma.atos.bankmanagement.entities.Operation;
-import ma.atos.ma.atos.bankmanagement.enums.SensOperation;
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import java.util.Date;
 
 @Data
 @NoArgsConstructor

@@ -1,9 +1,8 @@
 package ma.atos.ma.atos.bankmanagement.mappers;
 
-import ma.atos.ma.atos.bankmanagement.Dtos.AgenceDto;
+import ma.atos.ma.atos.bankmanagement.dtos.AgenceDto;
 import ma.atos.ma.atos.bankmanagement.entities.Agence;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 @Mapper
 public interface AgenceMapper {
