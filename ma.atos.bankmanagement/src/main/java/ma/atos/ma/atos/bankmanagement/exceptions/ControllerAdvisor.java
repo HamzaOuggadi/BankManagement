@@ -1,9 +1,8 @@
 package ma.atos.ma.atos.bankmanagement.exceptions;
 
 import lombok.extern.log4j.Log4j2;
-import ma.atos.ma.atos.bankmanagement.Dtos.responses.ErrorStatus;
-import ma.atos.ma.atos.bankmanagement.Dtos.responses.GenericResponse;
-import ma.atos.ma.atos.bankmanagement.enums.ApiStatusCode;
+import ma.atos.ma.atos.bankmanagement.dtos.responses.ErrorStatus;
+import ma.atos.ma.atos.bankmanagement.dtos.responses.GenericResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,6 +12,7 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 @ControllerAdvice
 @Log4j2
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
+
     @ExceptionHandler(Exception.class)
         public ResponseEntity<GenericResponse> handleException(Exception e) {
             GenericResponse result = new GenericResponse();
@@ -24,6 +24,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
 
              return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
     }
+
     @ExceptionHandler(TierNotFoundExeption.class)
     public ResponseEntity<GenericResponse> handleException(TierNotFoundExeption ex){
         GenericResponse result = new GenericResponse();
@@ -33,6 +34,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
         result.setDescription(ex.getMessage());
         return ResponseEntity.status(HttpStatus.OK).body(result);
     }
+
     @ExceptionHandler(RestrictionException.class)
     public ResponseEntity<GenericResponse> handleRestrictionException(RestrictionException ex){
             GenericResponse result = new GenericResponse();
@@ -43,15 +45,6 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
             return ResponseEntity.status(ex.getHttpStatus()).body(result);
     }
 
-//    @ExceptionHandler(OperationNotFoundException.class)
-//    public ResponseEntity<GenericResponse> handleOperationException(Exception e) {
-//            GenericResponse result = new GenericResponse();
-//            log.error(e.getMessage(), e);
-//            e.printStackTrace();
-//            result.setStatusCode(String.valueOf(ErrorStatus.TECHNICAL_ERROR.getCode()));
-//            result.setDescription(ErrorStatus.TECHNICAL_ERROR.description());
-//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(result);
-//    }
 
     @ExceptionHandler(CustomerException.class)
     public ResponseEntity<GenericResponse> handleCustomerException(CustomerException ex) {

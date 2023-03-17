@@ -1,12 +1,9 @@
 package ma.atos.ma.atos.bankmanagement.feignproxies;
 
-import javafx.geometry.Pos;
-import ma.atos.ma.atos.bankmanagement.Dtos.CompteDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.SitexDto;
-import ma.atos.ma.atos.bankmanagement.entities.Post;
+import ma.atos.ma.atos.bankmanagement.dtos.CompteDto;
+import ma.atos.ma.atos.bankmanagement.dtos.SitexDto;
 import ma.atos.ma.atos.bankmanagement.exceptions.SitexExeption;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

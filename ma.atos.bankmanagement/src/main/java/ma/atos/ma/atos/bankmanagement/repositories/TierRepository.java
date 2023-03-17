@@ -7,12 +7,16 @@ import ma.atos.ma.atos.bankmanagement.entities.Tier;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+
+/**
+ * Tiers Service database Layer for Entity {@link ma.atos.ma.atos.bankmanagement.entities.Tier}
+ */
 @Repository
-public interface TierRepository extends JpaRepository<Tier, Long> {
-    Tier findByNumClient(String numClient);
+public interface TierRepository extends JpaRepository<Tier, Long> { Tier findByNumClient(String numClient);
 
 
     List<PersonnePhysique> findPPByTierType(String type);
+
     List<PersonneMorale> findPMByTierType(String type);
 
     Tier findByTierTypeEqualsAndIdClientEquals(String type, Long idClient);
