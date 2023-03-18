@@ -11,7 +11,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CompteDto {
-
     private Long ribCompte;
     private TypeCompte typeCompte;
     private double balance;

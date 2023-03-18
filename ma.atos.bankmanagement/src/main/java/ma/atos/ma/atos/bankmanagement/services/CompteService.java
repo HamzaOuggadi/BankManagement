@@ -1,7 +1,7 @@
 package ma.atos.ma.atos.bankmanagement.services;
 
 import ma.atos.ma.atos.bankmanagement.Dtos.CompteDto;
-import ma.atos.ma.atos.bankmanagement.entities.Compte;
+import ma.atos.ma.atos.bankmanagement.Dtos.TierDto;
 import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
 import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 

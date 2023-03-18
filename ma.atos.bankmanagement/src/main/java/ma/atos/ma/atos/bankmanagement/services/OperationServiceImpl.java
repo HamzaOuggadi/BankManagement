@@ -45,7 +45,7 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public List<OperationDto> getOperationsByRibCompte(Long ribCompte) {
 
-        Compte compte = compteRepository.findCompteByRibCompte(ribCompte);
+        Compte compte = compteRepository.findByRibCompte(ribCompte);
 
         if (compte == null) {
             String msgError = messageSource.getMessage("operation.not.found.message",
@@ -155,7 +155,7 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public OperationDto createOperation(OperationDto operationDto) {
 
-        Compte compte = compteRepository.findCompteByRibCompte(operationDto.getRibCompte());
+        Compte compte = compteRepository.findByRibCompte(operationDto.getRibCompte());
         System.out.println("Display Account:" + compte);
         if (compte == null) {
             String msgError = messageSource.getMessage("account.not.found.message",

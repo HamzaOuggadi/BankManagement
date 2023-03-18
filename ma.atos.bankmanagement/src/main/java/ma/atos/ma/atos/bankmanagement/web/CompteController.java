@@ -12,26 +12,33 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin("*")
 public class CompteController {
     CompteServiceImpl compteService;
     MessageSource messageSource;
     SitexProxy sitexProxy;
 
     @GetMapping("/comptes")
+//    @PreAuthorize("hasAuthority('USER')")
     public ResponseEntity<List<CompteDto>> listCompte() throws CompteException {
         return ResponseEntity.ok(compteService.listComptes());
     }
     @GetMapping("/comptes/{ribCompte}")
-    public ResponseEntity<CompteDto> getCompte(@PathVariable Long ribCompte) throws CompteException {
-        return ResponseEntity.ok(compteService.getCompte(ribCompte));
+//    @PreAuthorize("hasAuthority('USER')")
+    public ResponseEntity<List<CompteDto>> getCompte(@PathVariable Long ribCompte) throws CompteException {
+        List<CompteDto> compteDtos = new ArrayList<>();
+        compteDtos.add(compteService.getCompte(ribCompte));
+        return ResponseEntity.ok(compteDtos);
     }
 
     @PostMapping("/comptes/createCompte")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<GenericResponse> createCompte(@RequestBody CompteDto compteDto) throws CompteException {
         GenericResponse result = new GenericResponse();
         compteService.createCompte(compteDto);
@@ -43,6 +50,7 @@ public class CompteController {
     }
 
     @DeleteMapping("/comptes/deleteAccount/{ribCompte}")
+//    @PreAuthorize("hasAuthority('ADMIN')")
     public ResponseEntity<GenResponse> deleteAccount(@PathVariable Long ribCompte) throws CompteException {
         GenResponse response = new GenResponse();
         compteService.deleteCompte(ribCompte);
@@ -65,5 +73,10 @@ public class CompteController {
     @GetMapping("/ComptesDTO")
     public ResponseEntity<List<CompteDto>> getComptesDTO() {
         return ResponseEntity.ok(sitexProxy.getComptes());
+    }
+
+    @GetMapping(value = "/comptes", params = "numClient")
+    public ResponseEntity<List<CompteDto>> getCompteByNumClient(@RequestParam String numClient) throws CompteException {
+        return ResponseEntity.ok(compteService.getCompteByTier(numClient));
     }
 }

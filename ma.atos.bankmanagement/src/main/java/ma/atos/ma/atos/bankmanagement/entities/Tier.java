@@ -18,7 +18,7 @@ public abstract class Tier {
     protected String nationalite;
     protected Date dateSouscription;
     protected String adresse;
-    @OneToMany
+    @OneToMany(mappedBy = "tier")
     protected List<Compte> comptes;
     @OneToMany
     protected List<Restriction> restrictions;

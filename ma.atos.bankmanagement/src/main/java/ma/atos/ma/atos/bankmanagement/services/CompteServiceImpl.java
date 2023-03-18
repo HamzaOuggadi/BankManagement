@@ -1,24 +1,23 @@
 package ma.atos.ma.atos.bankmanagement.services;
 
 
-import jdk.nashorn.internal.runtime.options.Option;
 import lombok.extern.slf4j.Slf4j;
-import ma.atos.ma.atos.bankmanagement.Dtos.CompteDto;
-import ma.atos.ma.atos.bankmanagement.Dtos.SitexDto;
-import ma.atos.ma.atos.bankmanagement.config.MessageConfiguration;
+import ma.atos.ma.atos.bankmanagement.Dtos.*;
 import ma.atos.ma.atos.bankmanagement.entities.Compte;
+import ma.atos.ma.atos.bankmanagement.entities.PersonneMorale;
+import ma.atos.ma.atos.bankmanagement.entities.PersonnePhysique;
 import ma.atos.ma.atos.bankmanagement.entities.Tier;
 import ma.atos.ma.atos.bankmanagement.enums.ApiStatusCode;
 import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
 import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.CompteMapper;
+import ma.atos.ma.atos.bankmanagement.mappers.PersonneMoraleMapper;
+import ma.atos.ma.atos.bankmanagement.mappers.PersonnePhysiqueMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.CompteRepository;
 import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
@@ -36,6 +35,8 @@ public class CompteServiceImpl implements CompteService {
     @Autowired RestTemplate restTemplate;
 
     @Autowired MessageSource messageSource;
+
+
 
     @Override
     public List<CompteDto> listComptes() throws CompteException {
@@ -101,6 +102,7 @@ public class CompteServiceImpl implements CompteService {
             throw new TierNotFoundExeption("Can't Find Customer");
         } else {
             List<Compte> comptes = tier.getComptes();
+            log.info(comptes.toString());
             List<CompteDto> compteDtos = new ArrayList<>();
             if (!CollectionUtils.isEmpty(comptes)) {
                 comptes.stream().forEach(compte -> {
@@ -116,6 +118,7 @@ public class CompteServiceImpl implements CompteService {
             return compteDtos;
         }
     }
+
     @Override
     public void createCompte(CompteDto compteDto) throws CompteException {
         Compte compte = compteMapper.compteDtoToCompte(compteDto);
@@ -132,16 +135,14 @@ public class CompteServiceImpl implements CompteService {
     }
     @Override
     public void deleteCompte(Long ribCompte) throws CompteException {
-        if (compteRepository.findCompteByRibCompte(ribCompte) == null) {
+        if (compteRepository.findByRibCompte(ribCompte) == null) {
             throw new CompteException(
                     messageSource.getMessage("account.not.found.message", new Object[]{ribCompte}, Locale.getDefault()),
                     messageSource.getMessage("account.not.found.messageFront", new Object[]{}, Locale.getDefault()),
                     ApiStatusCode.API_COMPTE_100,
                     HttpStatus.NOT_FOUND);
         } else {
-            compteRepository.delete(compteRepository.findCompteByRibCompte(ribCompte));
+            compteRepository.delete(compteRepository.findByRibCompte(ribCompte));
         }
     }
-
-
 }
