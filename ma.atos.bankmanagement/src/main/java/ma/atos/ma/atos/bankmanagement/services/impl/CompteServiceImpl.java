@@ -16,14 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Service
+@Transactional
 @Slf4j
 public class CompteServiceImpl implements CompteService {
     @Autowired CompteRepository compteRepository;
@@ -95,10 +95,12 @@ public class CompteServiceImpl implements CompteService {
     @Override
     public List<CompteDto> getCompteByTier(String numClient) throws CompteException, TierNotFoundExeption {
         Tier tier = tierRepository.findByNumClient(numClient);
+        System.out.println("------------------>" + tier.toString());
         if (tier == null) {
             throw new TierNotFoundExeption("Can't Find Customer");
         } else {
             List<Compte> comptes = tier.getComptes();
+            System.out.println("------------------>" + comptes.toString());
             List<CompteDto> compteDtos = new ArrayList<>();
             if (!CollectionUtils.isEmpty(comptes)) {
                 comptes.stream().forEach(compte -> {
@@ -114,10 +116,20 @@ public class CompteServiceImpl implements CompteService {
             return compteDtos;
         }
     }
+
+    /**
+     *
+     * @param compteDto
+     * @throws CompteException
+     */
     @Override
-    public void createCompte(CompteDto compteDto) throws CompteException {
-        Compte compte = compteMapper.compteDtoToCompte(compteDto);
+    public void createCompte(CompteDto compteDto, String numClient, Long idGestionnaire) throws CompteException {
+        Random random = new Random();
         try {
+            compteDto.setRibCompte(random.nextLong() & Long.MAX_VALUE);
+            Compte compte = compteMapper.compteDtoToCompte(compteDto);
+            Tier tier = tierRepository.findByNumClient(numClient);
+            compte.setTier(tier);
             compte.setDateCreation(new Date());
             compteRepository.save(compte);
         } catch (Exception e) {

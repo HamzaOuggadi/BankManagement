@@ -26,7 +26,7 @@ public abstract class Tier {
 
     protected String adresse;
 
-    @OneToMany
+    @OneToMany(mappedBy = "tier")
     protected List<Compte> comptes;
 
     @OneToMany

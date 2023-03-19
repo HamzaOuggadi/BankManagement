@@ -5,11 +5,12 @@ import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
 import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 
 import java.util.List;
+import java.util.Locale;
 
 public interface CompteService {
     List<CompteDto> listComptes() throws CompteException;
     CompteDto getCompte(Long ribCompte) throws CompteException;
     List<CompteDto> getCompteByTier(String numClient) throws CompteException, TierNotFoundExeption;
-    void createCompte(CompteDto compteDto) throws CompteException;
+    void createCompte(CompteDto compteDto, String numClient, Long idGestionnaire) throws CompteException;
     void deleteCompte(Long ribCompte) throws CompteException;
 }
