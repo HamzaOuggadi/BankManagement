@@ -7,7 +7,8 @@ import ma.atos.ma.atos.bankmanagement.enums.ApiStatusCode;
 @Getter
 @Setter
 public class GenResponse {
-    private ApiStatusCode statusCode;
+    private ApiStatusCode ApiStatusCode;
+    private String httpStatusCode;
     private String description;
     private String descriptionFront;
     private boolean error;

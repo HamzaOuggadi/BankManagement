@@ -19,6 +19,8 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.Random;
 import java.util.stream.Stream;
@@ -66,7 +68,7 @@ public class Application {
 				CompteDto compteDto = new CompteDto();
 				compteDto.setRibCompte(i+123456789L);
 				log.info("itération : " + i + "rib : " + compteDto.getRibCompte());
-				compteDto.setBalance(Math.random()*100000);
+				compteDto.setBalance(Math.round((Math.random()*100000)*100.0)/100.0);
 				compteDto.setDevise("MAD");
 				compteDto.setDateCreation(new Date());
 				compteDto.setTypeCompte(TypeCompte.COMPTE_COURANT);

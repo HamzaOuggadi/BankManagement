@@ -17,4 +17,5 @@ public class CompteDto {
     private double balance;
     private Date dateCreation;
     private String devise;
+    private String ribAsString;
 }

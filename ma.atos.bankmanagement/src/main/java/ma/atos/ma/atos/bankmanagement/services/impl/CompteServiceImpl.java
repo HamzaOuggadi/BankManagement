@@ -41,7 +41,9 @@ public class CompteServiceImpl implements CompteService {
         List<CompteDto> compteDtos = new ArrayList<>();
         if(!CollectionUtils.isEmpty(comptes)) {
             comptes.stream().forEach(compte -> {
-                compteDtos.add(compteMapper.compteToCompteDto(compte));
+                CompteDto compteDto = compteMapper.compteToCompteDto(compte);
+                compteDto.setRibAsString(String.valueOf(compteDto.getRibCompte()));
+                compteDtos.add(compteDto);
             });
         } else {
             throw new CompteException(
@@ -53,6 +55,7 @@ public class CompteServiceImpl implements CompteService {
 
         return compteDtos;
     }
+
 
     @Override
     public CompteDto getCompte(Long ribCompte) throws CompteException {
@@ -82,7 +85,9 @@ public class CompteServiceImpl implements CompteService {
                     ApiStatusCode.API_COMPTE_100,
                     HttpStatus.NOT_FOUND);
         } else {
-            return compteMapper.compteToCompteDto(compte);
+            CompteDto compteDto = compteMapper.compteToCompteDto(compte);
+            compteDto.setRibAsString(String.valueOf(compteDto.getRibCompte()));
+            return compteDto;
         }
     }
 
@@ -127,6 +132,7 @@ public class CompteServiceImpl implements CompteService {
         Random random = new Random();
         try {
             compteDto.setRibCompte(random.nextLong() & Long.MAX_VALUE);
+            System.out.println("**************** RIB" + compteDto.getRibCompte().toString());
             Compte compte = compteMapper.compteDtoToCompte(compteDto);
             Tier tier = tierRepository.findByNumClient(numClient);
             compte.setTier(tier);
