@@ -32,7 +32,7 @@ public class CompteController {
     private final CompteService compteService;
     private final MessageSource messageSource;
 
-    @Operation(summary = "Returns a List of Accounts(Comptes).", description = "Returns a List of all the bank accounts available on the database.")
+    @Operation(summary = "Returns a List of Accounts(Comptes).", description = "Returns a List of all the bank accounts available on the database.", tags = "Compte")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "LIST RETURNED SUCCESSFULLY", content = @Content(schema = @Schema(implementation = GenResponse.class))),
             @ApiResponse(responseCode = "403", description = "FORBIDDEN", content = @Content(schema = @Schema(implementation = GenResponse.class))),
@@ -43,7 +43,9 @@ public class CompteController {
     public ResponseEntity<List<CompteDto>> listCompte() throws CompteException {
         return ResponseEntity.ok(compteService.listComptes());
     }
-    @Operation(summary = "Returns one account by RIB.", description = "Returns an Account using the RIB, the return type is a List<> so its easy to display on the front using an Iterator.")
+
+
+    @Operation(summary = "Returns one account by RIB.", description = "Returns an Account using the RIB, the return type is a List<> so its easy to display on the front using an Iterator.", tags = "Compte")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "ACCOUNT RETURNED SUCCESSFULLY", content = @Content(schema = @Schema(implementation = GenResponse.class))),
             @ApiResponse(responseCode = "403", description = "FORBIDDEN", content = @Content(schema = @Schema(implementation = GenResponse.class))),
@@ -57,7 +59,8 @@ public class CompteController {
         return ResponseEntity.ok(compteDtos);
     }
 
-    @Operation(summary = "Creates an account", description = "Creates an account by taking a body of type CompteDTO, a client number and the Gestionnaire ID.")
+
+    @Operation(summary = "Creates an account", description = "Creates an account by taking a body of type CompteDTO, a client number and the Gestionnaire ID.", tags = "Compte")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "ACCOUNT CREATED SUCCESSFULLY", content = @Content(schema = @Schema(implementation = GenResponse.class))),
             @ApiResponse(responseCode = "403", description = "FORBIDDEN", content = @Content(schema = @Schema(implementation = GenResponse.class))),
@@ -75,13 +78,14 @@ public class CompteController {
         return ResponseEntity.ok(result);
     }
 
+
+    @Operation(summary = "Delete an account", description = "Delete an account using the RIB", tags = "Compte")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "ACCOUNT DELETED SUCCESSFULLY", content = @Content(schema = @Schema(implementation = GenResponse.class))),
             @ApiResponse(responseCode = "403", description = "FORBIDDEN", content = @Content(schema = @Schema(implementation = GenResponse.class))),
             @ApiResponse(responseCode = "404", description = "ACCOUNT NOT FOUND", content = @Content(schema = @Schema(implementation = GenResponse.class))),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = GenResponse.class)))
     })
-    @Operation(summary = "Delete an account", description = "Delete an account using the RIB")
     @DeleteMapping("/deleteByRib/{ribCompte}")
     public ResponseEntity<GenResponse> deleteAccount(@PathVariable Long ribCompte) throws CompteException {
         GenResponse response = new GenResponse();
@@ -92,13 +96,14 @@ public class CompteController {
         return ResponseEntity.ok(response);
     }
 
+
+    @Operation(summary = "Returns an account using numClient.", description = "Returns an account using client number as a parameter.", tags = "Compte")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "ACCOUNT RETURNED SUCCESSFULLY", content = @Content(schema = @Schema(implementation = GenResponse.class))),
             @ApiResponse(responseCode = "403", description = "FORBIDDEN", content = @Content(schema = @Schema(implementation = GenResponse.class))),
             @ApiResponse(responseCode = "404", description = "ACCOUNT NOT FOUND", content = @Content(schema = @Schema(implementation = GenResponse.class))),
             @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = GenResponse.class)))
     })
-    @Operation(summary = "Returns an account using numClient.", description = "Returns an account using client number as a parameter.")
     @GetMapping(params = "numClient")
     public ResponseEntity<List<CompteDto>> getCompteByNumClient(@RequestParam String numClient) throws CompteException {
         if (!Objects.equals(numClient, "")) {
