@@ -35,6 +35,12 @@ public class CompteServiceImpl implements CompteService {
 
     @Autowired MessageSource messageSource;
 
+
+    /**
+     * ?? This service Returns a list of all CompteDTOs available in DB
+     * @return
+     * @throws CompteException
+     */
     @Override
     public List<CompteDto> listComptes() throws CompteException {
         List<Compte> comptes = compteRepository.findAll();
@@ -57,6 +63,12 @@ public class CompteServiceImpl implements CompteService {
     }
 
 
+    /**
+     * ?? This service returns one CompteDTO using the RIB
+     * @param ribCompte
+     * @return
+     * @throws CompteException
+     */
     @Override
     public CompteDto getCompte(Long ribCompte) throws CompteException {
 
@@ -92,7 +104,7 @@ public class CompteServiceImpl implements CompteService {
     }
 
     /**
-     *
+     * ?? This Service returns all CompteDTOs using a customer number (numClient)
      * @param numClient
      * @return
      * @throws CompteException
@@ -123,7 +135,7 @@ public class CompteServiceImpl implements CompteService {
     }
 
     /**
-     *
+     * ?? This Service creates an Account using a Body CompteDTO, customer number (numClient), and the Gestionnaire ID
      * @param compteDto
      * @throws CompteException
      */
@@ -146,6 +158,13 @@ public class CompteServiceImpl implements CompteService {
                     HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+
+    /**
+     * ?? This Service deletes an account using its RIB
+     * @param ribCompte
+     * @throws CompteException
+     */
     @Override
     public void deleteCompte(Long ribCompte) throws CompteException {
         if (compteRepository.findCompteByRibCompte(ribCompte) == null) {
