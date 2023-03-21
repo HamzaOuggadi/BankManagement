@@ -8,11 +8,9 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import ma.atos.ma.atos.bankmanagement.dtos.CompteDto;
-import ma.atos.ma.atos.bankmanagement.dtos.responses.GenericResponse;
 import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
 import ma.atos.ma.atos.bankmanagement.exceptions.GenResponse;
 import ma.atos.ma.atos.bankmanagement.services.CompteService;
-import ma.atos.ma.atos.bankmanagement.services.impl.CompteServiceImpl;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+
 @Tag(name = "Compte", description = "API that handles the bank accounts")
 @RestController
 @CrossOrigin

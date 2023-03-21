@@ -72,22 +72,6 @@ public class CompteServiceImpl implements CompteService {
     @Override
     public CompteDto getCompte(Long ribCompte) throws CompteException {
 
-        // CALL THE SITEX API REST START /////
-        // Method HTTP , RequestBody Path Variable
-        /*SitexDto sitexDto = new SitexDto();
-        sitexDto.setType("Frozen");
-        String url = hostSitex.concat(actionCreateSitex);
-
-        ResponseEntity<String> result = restTemplate
-                .postForEntity(
-                        url,
-                        sitexDto,
-                        String.class);
-
-        log.info("Sitex crée avec succes pour ce compte, réponse d'API est  " + result.getBody());*/
-
-        // CALL THE SITEX API REST END   ////
-
         Compte compte = compteRepository.findByRibCompte(ribCompte);
 
         if (compte == null) {
