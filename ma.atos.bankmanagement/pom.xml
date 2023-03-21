@@ -25,6 +25,32 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.pcbsys.nirvana</groupId>
+			<artifactId>javax.jms-api-2.0.1</artifactId>
+			<version>2.0.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/javax.jms-api-2.0.1.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>com.pcbsys.nirvana</groupId>
+			<artifactId>nClient</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/nClient.jar</systemPath>
+		</dependency>
+
+
+		<dependency>
+			<groupId>com.pcbsys.nirvana</groupId>
+			<artifactId>nJMS</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/nJMS.jar</systemPath>
+		</dependency>
+
+
+		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
@@ -34,6 +60,13 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.5.1</version>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.springdoc/springdoc-openapi-ui -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-ui</artifactId>
+			<version>1.6.15</version>
 		</dependency>
 
 		<dependency>
