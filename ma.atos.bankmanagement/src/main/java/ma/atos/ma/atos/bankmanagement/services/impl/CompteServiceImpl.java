@@ -7,9 +7,11 @@ import ma.atos.ma.atos.bankmanagement.entities.Compte;
 import ma.atos.ma.atos.bankmanagement.entities.Tier;
 import ma.atos.ma.atos.bankmanagement.enums.ApiStatusCode;
 import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
+import ma.atos.ma.atos.bankmanagement.exceptions.GestionnaireException;
 import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.CompteMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.CompteRepository;
+import ma.atos.ma.atos.bankmanagement.repositories.GestionnaireRepository;
 import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
 import ma.atos.ma.atos.bankmanagement.services.CompteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +30,7 @@ import java.util.*;
 public class CompteServiceImpl implements CompteService {
     @Autowired CompteRepository compteRepository;
     @Autowired TierRepository tierRepository;
+    @Autowired GestionnaireRepository gestionnaireRepository;
 
     @Autowired CompteMapper compteMapper;
 
@@ -153,6 +156,7 @@ public class CompteServiceImpl implements CompteService {
         Random random = new Random();
         try {
             compteDto.setRibCompte(random.nextLong() & Long.MAX_VALUE);
+            compteDto.setGestionnaire(gestionnaireRepository.findById(idGestionnaire).orElseThrow(()-> new GestionnaireException("Gestionnaire Not Found")));
             System.out.println("**************** RIB" + compteDto.getRibCompte().toString());
             Compte compte = compteMapper.compteDtoToCompte(compteDto);
             Tier tier = tierRepository.findByNumClient(numClient);
