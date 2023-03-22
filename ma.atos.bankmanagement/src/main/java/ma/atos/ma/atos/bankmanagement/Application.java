@@ -3,11 +3,14 @@ package ma.atos.ma.atos.bankmanagement;
 import lombok.extern.slf4j.Slf4j;
 import ma.atos.ma.atos.bankmanagement.dtos.CompteDto;
 import ma.atos.ma.atos.bankmanagement.entities.Compte;
+import ma.atos.ma.atos.bankmanagement.entities.Gestionnaire;
 import ma.atos.ma.atos.bankmanagement.entities.PersonnePhysique;
 import ma.atos.ma.atos.bankmanagement.enums.TypeCompte;
+import ma.atos.ma.atos.bankmanagement.exceptions.CompteNotFoundException;
 import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.CompteMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.CompteRepository;
+import ma.atos.ma.atos.bankmanagement.repositories.GestionnaireRepository;
 import ma.atos.ma.atos.bankmanagement.repositories.OperationRepository;
 import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
 import ma.atos.ma.atos.bankmanagement.services.CompteService;
@@ -21,7 +24,9 @@ import org.springframework.context.annotation.Bean;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 import java.util.stream.Stream;
 
@@ -41,10 +46,12 @@ public class Application {
 								  CompteService compteService,
 								  TierRepository tierRepository,
 								  CompteMapper compteMapper,
-								  CompteRepository compteRepository) {
+								  CompteRepository compteRepository,
+								  GestionnaireRepository gestionnaireRepository) {
 		return args -> {
 			int min = 1;
 			int max = 6;
+			int max2 = 3;
 			Random random = new Random();
 
 			for (int i=0; i<2; i++) {
@@ -64,6 +71,14 @@ public class Application {
 				});
 			}
 
+			Stream.of("Aziz", "Sara", "7med").forEach(gest -> {
+				Gestionnaire gestionnaire = new Gestionnaire();
+				gestionnaire.setNom(gest);
+				gestionnaire.setNumGestionnaire("A" + (int) (Math.random()*1000));
+				List<Compte> comptes = new ArrayList<>();
+				gestionnaireRepository.save(gestionnaire);
+			});
+
 			for (int i=0; i<10; i++) {
 				CompteDto compteDto = new CompteDto();
 				compteDto.setRibCompte(i+123456789L);
@@ -75,8 +90,10 @@ public class Application {
 //			compteService.createCompte(compteDto);
 				Compte compte = compteMapper.compteDtoToCompte(compteDto);
 				compte.setTier(tierRepository.findById((long) random.nextInt(max - min + 1) + min).orElseThrow(()-> new TierNotFoundExeption("Not Found!")));
+				compte.setGestionnaire(gestionnaireRepository.findById((long)random.nextInt(max2 - min + 1) + min).orElseThrow(()-> new CompteNotFoundException("Compte Not Found !")));
 				compteRepository.save(compte);
 			}
+
 
 		};
 	}

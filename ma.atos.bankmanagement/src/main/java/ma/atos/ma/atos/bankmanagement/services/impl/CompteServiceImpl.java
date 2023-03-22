@@ -118,6 +118,18 @@ public class CompteServiceImpl implements CompteService {
         }
     }
 
+    @Override
+    public List<CompteDto> getCompteByGestionnaire(Long idGestionnaire) {
+        List<Compte> comptes = compteRepository.findByGestionnaireIdGestionnaire(idGestionnaire);
+        List<CompteDto> compteDtos = new ArrayList<>();
+        comptes.stream().forEach(compte -> {
+            CompteDto compteDto = compteMapper.compteToCompteDto(compte);
+            compteDto.setRibAsString(String.valueOf(compteDto.getRibCompte()));
+            compteDtos.add(compteDto);
+        });
+        return compteDtos;
+    }
+
     /**
      * ?? This Service creates an Account using a Body CompteDTO, customer number (numClient), and the Gestionnaire ID
      * @param compteDto

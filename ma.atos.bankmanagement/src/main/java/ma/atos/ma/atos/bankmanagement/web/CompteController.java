@@ -111,4 +111,9 @@ public class CompteController {
             return ResponseEntity.ok(compteService.listComptes());
         }
     }
+
+    @GetMapping("/compteByGestionnaire/{idGestionnaire}")
+    public ResponseEntity<List<CompteDto>> getCompteByGestionnaire(@PathVariable Long idGestionnaire) {
+        return ResponseEntity.ok(compteService.getCompteByGestionnaire(idGestionnaire));
+    }
 }

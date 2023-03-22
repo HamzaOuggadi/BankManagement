@@ -22,7 +22,7 @@ public class Compte {
     private String devise;
     @ManyToOne
     private Tier tier;
-    @OneToOne
+    @ManyToOne
     private Gestionnaire gestionnaire;
     @OneToMany
     private List<Sitex> sitexes;
