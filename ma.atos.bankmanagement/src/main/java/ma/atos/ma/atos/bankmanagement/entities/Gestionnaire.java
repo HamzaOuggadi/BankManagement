@@ -14,6 +14,6 @@ public class Gestionnaire {
     private Long idGestionnaire;
     private String numGestionnaire;
     private String nom;
-    @OneToMany(cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "gestionnaire", cascade = CascadeType.REMOVE)
     private List<Compte> comptes;
 }

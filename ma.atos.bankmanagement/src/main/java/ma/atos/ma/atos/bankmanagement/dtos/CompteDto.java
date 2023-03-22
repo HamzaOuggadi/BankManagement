@@ -3,6 +3,7 @@ package ma.atos.ma.atos.bankmanagement.dtos;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ma.atos.ma.atos.bankmanagement.entities.Sitex;
 import ma.atos.ma.atos.bankmanagement.enums.TypeCompte;
 
 import java.util.Date;
@@ -18,4 +19,5 @@ public class CompteDto {
     private Date dateCreation;
     private String devise;
     private String ribAsString;
+    private Sitex sitex;
 }

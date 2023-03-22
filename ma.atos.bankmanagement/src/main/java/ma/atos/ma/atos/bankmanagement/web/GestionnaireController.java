@@ -1,6 +1,7 @@
 package ma.atos.ma.atos.bankmanagement.web;
 
 import ma.atos.ma.atos.bankmanagement.dtos.GestionnaireDto;
+import ma.atos.ma.atos.bankmanagement.dtos.RestrictionDto;
 import ma.atos.ma.atos.bankmanagement.dtos.responses.GenericResponse;
 import ma.atos.ma.atos.bankmanagement.entities.Gestionnaire;
 import ma.atos.ma.atos.bankmanagement.repositories.GestionnaireRepository;
@@ -10,6 +11,7 @@ import org.springframework.context.MessageSource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Locale;
 
 @RestController
@@ -20,6 +22,13 @@ public class GestionnaireController {
     @Autowired GestionnaireRepository gestionnaireRepository;
     @Autowired GestionnaireServiceImpl gestionnaireService;
     @Autowired MessageSource messageSource;
+
+
+    @GetMapping("/list")
+    @CrossOrigin("*")
+    public List<GestionnaireDto> getGestionnaire(){
+        return gestionnaireService.getGestionnaire() ;
+    }
 
     @GetMapping("/get/{idGestionnaire}")
     @CrossOrigin("*")

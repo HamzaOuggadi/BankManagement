@@ -16,15 +16,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 @Service
+@Transactional
 @Slf4j
 public class CompteServiceImpl implements CompteService {
     @Autowired CompteRepository compteRepository;
@@ -36,13 +35,21 @@ public class CompteServiceImpl implements CompteService {
 
     @Autowired MessageSource messageSource;
 
+
+    /**
+     * ?? This service Returns a list of all CompteDTOs available in DB
+     * @return
+     * @throws CompteException
+     */
     @Override
     public List<CompteDto> listComptes() throws CompteException {
         List<Compte> comptes = compteRepository.findAll();
         List<CompteDto> compteDtos = new ArrayList<>();
         if(!CollectionUtils.isEmpty(comptes)) {
             comptes.stream().forEach(compte -> {
-                compteDtos.add(compteMapper.compteToCompteDto(compte));
+                CompteDto compteDto = compteMapper.compteToCompteDto(compte);
+                compteDto.setRibAsString(String.valueOf(compteDto.getRibCompte()));
+                compteDtos.add(compteDto);
             });
         } else {
             throw new CompteException(
@@ -55,24 +62,15 @@ public class CompteServiceImpl implements CompteService {
         return compteDtos;
     }
 
+
+    /**
+     * ?? This service returns one CompteDTO using the RIB
+     * @param ribCompte
+     * @return
+     * @throws CompteException
+     */
     @Override
     public CompteDto getCompte(Long ribCompte) throws CompteException {
-
-        // CALL THE SITEX API REST START /////
-        // Method HTTP , RequestBody Path Variable
-        /*SitexDto sitexDto = new SitexDto();
-        sitexDto.setType("Frozen");
-        String url = hostSitex.concat(actionCreateSitex);
-
-        ResponseEntity<String> result = restTemplate
-                .postForEntity(
-                        url,
-                        sitexDto,
-                        String.class);
-
-        log.info("Sitex crée avec succes pour ce compte, réponse d'API est  " + result.getBody());*/
-
-        // CALL THE SITEX API REST END   ////
 
         Compte compte = compteRepository.findByRibCompte(ribCompte);
 
@@ -83,12 +81,14 @@ public class CompteServiceImpl implements CompteService {
                     ApiStatusCode.API_COMPTE_100,
                     HttpStatus.NOT_FOUND);
         } else {
-            return compteMapper.compteToCompteDto(compte);
+            CompteDto compteDto = compteMapper.compteToCompteDto(compte);
+            compteDto.setRibAsString(String.valueOf(compteDto.getRibCompte()));
+            return compteDto;
         }
     }
 
     /**
-     *
+     * ?? This Service returns all CompteDTOs using a customer number (numClient)
      * @param numClient
      * @return
      * @throws CompteException
@@ -96,10 +96,12 @@ public class CompteServiceImpl implements CompteService {
     @Override
     public List<CompteDto> getCompteByTier(String numClient) throws CompteException, TierNotFoundExeption {
         Tier tier = tierRepository.findByNumClient(numClient);
+        System.out.println("------------------>" + tier.toString());
         if (tier == null) {
             throw new TierNotFoundExeption("Can't Find Customer");
         } else {
             List<Compte> comptes = tier.getComptes();
+            System.out.println("------------------>" + comptes.toString());
             List<CompteDto> compteDtos = new ArrayList<>();
             if (!CollectionUtils.isEmpty(comptes)) {
                 comptes.stream().forEach(compte -> {
@@ -115,10 +117,33 @@ public class CompteServiceImpl implements CompteService {
             return compteDtos;
         }
     }
+
     @Override
-    public void createCompte(CompteDto compteDto) throws CompteException {
-        Compte compte = compteMapper.compteDtoToCompte(compteDto);
+    public List<CompteDto> getCompteByGestionnaire(Long idGestionnaire) {
+        List<Compte> comptes = compteRepository.findByGestionnaireIdGestionnaire(idGestionnaire);
+        List<CompteDto> compteDtos = new ArrayList<>();
+        comptes.stream().forEach(compte -> {
+            CompteDto compteDto = compteMapper.compteToCompteDto(compte);
+            compteDto.setRibAsString(String.valueOf(compteDto.getRibCompte()));
+            compteDtos.add(compteDto);
+        });
+        return compteDtos;
+    }
+
+    /**
+     * ?? This Service creates an Account using a Body CompteDTO, customer number (numClient), and the Gestionnaire ID
+     * @param compteDto
+     * @throws CompteException
+     */
+    @Override
+    public void createCompte(CompteDto compteDto, String numClient, Long idGestionnaire) throws CompteException {
+        Random random = new Random();
         try {
+            compteDto.setRibCompte(random.nextLong() & Long.MAX_VALUE);
+            System.out.println("**************** RIB" + compteDto.getRibCompte().toString());
+            Compte compte = compteMapper.compteDtoToCompte(compteDto);
+            Tier tier = tierRepository.findByNumClient(numClient);
+            compte.setTier(tier);
             compte.setDateCreation(new Date());
             compteRepository.save(compte);
         } catch (Exception e) {
@@ -129,6 +154,13 @@ public class CompteServiceImpl implements CompteService {
                     HttpStatus.NOT_ACCEPTABLE);
         }
     }
+
+
+    /**
+     * ?? This Service deletes an account using its RIB
+     * @param ribCompte
+     * @throws CompteException
+     */
     @Override
     public void deleteCompte(Long ribCompte) throws CompteException {
         if (compteRepository.findCompteByRibCompte(ribCompte) == null) {

@@ -58,4 +58,9 @@ public class CompteController {
     public ResponseEntity<List<CompteDto>> getComptesDTO() {
         return ResponseEntity.ok(sitexProxy.getComptes());
     }
+
+    @GetMapping("/compteByGestionnaire/{idGestionnaire}")
+    public ResponseEntity<List<CompteDto>> getCompteByGestionnaire(@PathVariable Long idGestionnaire) {
+        return ResponseEntity.ok(compteService.getCompteByGestionnaire(idGestionnaire));
+    }
 }
