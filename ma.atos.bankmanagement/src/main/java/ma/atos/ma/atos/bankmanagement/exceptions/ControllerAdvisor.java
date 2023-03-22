@@ -66,7 +66,7 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
             response.setError(true);
             response.setDescription(e.getMessage());
             response.setDescriptionFront(e.getMessageFront());
-            response.setStatusCode(e.getCode());
+            response.setApiStatusCode(e.getCode());
             return ResponseEntity.status(e.getHttpStatus()).body(response);
     }
 
