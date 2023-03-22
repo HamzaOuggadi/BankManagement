@@ -112,8 +112,15 @@ public class CompteController {
         }
     }
 
+    @Operation(summary = "Returns a List of accounts using idGestionnaire", description = "Returns a List of accounts depending on the Gestionnaire that handles them", tags = "Compte")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "ACCOUNT RETURNED SUCCESSFULLY", content = @Content(schema = @Schema(implementation = GenResponse.class))),
+            @ApiResponse(responseCode = "403", description = "FORBIDDEN", content = @Content(schema = @Schema(implementation = GenResponse.class))),
+            @ApiResponse(responseCode = "404", description = "ACCOUNT NOT FOUND", content = @Content(schema = @Schema(implementation = GenResponse.class))),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR", content = @Content(schema = @Schema(implementation = GenResponse.class)))
+    })
     @GetMapping("/compteByGestionnaire/{idGestionnaire}")
-    public ResponseEntity<List<CompteDto>> getCompteByGestionnaire(@PathVariable Long idGestionnaire) {
+    public ResponseEntity<List<CompteDto>> getCompteByGestionnaire(@PathVariable Long idGestionnaire) throws CompteException {
         return ResponseEntity.ok(compteService.getCompteByGestionnaire(idGestionnaire));
     }
 }

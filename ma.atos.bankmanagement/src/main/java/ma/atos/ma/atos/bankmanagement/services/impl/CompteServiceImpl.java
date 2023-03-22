@@ -118,16 +118,29 @@ public class CompteServiceImpl implements CompteService {
         }
     }
 
+    /**
+     * ?? This service returns a List of Accounts depending on the Gestionnaire ID
+     * @param idGestionnaire
+     * @return
+     */
     @Override
-    public List<CompteDto> getCompteByGestionnaire(Long idGestionnaire) {
+    public List<CompteDto> getCompteByGestionnaire(Long idGestionnaire) throws CompteException {
         List<Compte> comptes = compteRepository.findByGestionnaireIdGestionnaire(idGestionnaire);
-        List<CompteDto> compteDtos = new ArrayList<>();
-        comptes.stream().forEach(compte -> {
-            CompteDto compteDto = compteMapper.compteToCompteDto(compte);
-            compteDto.setRibAsString(String.valueOf(compteDto.getRibCompte()));
-            compteDtos.add(compteDto);
-        });
-        return compteDtos;
+        if (!CollectionUtils.isEmpty(comptes)) {
+            List<CompteDto> compteDtos = new ArrayList<>();
+            comptes.stream().forEach(compte -> {
+                CompteDto compteDto = compteMapper.compteToCompteDto(compte);
+                compteDto.setRibAsString(String.valueOf(compteDto.getRibCompte()));
+                compteDtos.add(compteDto);
+            });
+            return compteDtos;
+        } else {
+            throw new CompteException(
+                    messageSource.getMessage("account.list.not.found.message", new Object[]{}, Locale.getDefault()),
+                    messageSource.getMessage("account.list.not.found.messageFront", new Object[]{}, Locale.getDefault()),
+                    ApiStatusCode.API_COMPTE_300,
+                    HttpStatus.NOT_FOUND);
+        }
     }
 
     /**
