@@ -12,8 +12,7 @@ import java.util.List;
  * Tiers Service database Layer for Entity {@link ma.atos.ma.atos.bankmanagement.entities.Tier}
  */
 @Repository
-public interface TierRepository extends JpaRepository<Tier, Long> {
-    Tier findByNumClient(String numClient);
+public interface TierRepository extends JpaRepository<Tier, Long> { Tier findByNumClient(String numClient);
 
 
     List<PersonnePhysique> findPPByTierType(String type);
