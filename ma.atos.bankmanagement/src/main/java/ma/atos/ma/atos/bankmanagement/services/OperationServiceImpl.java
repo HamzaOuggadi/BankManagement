@@ -42,6 +42,67 @@ public class OperationServiceImpl implements OperationService {
     private MessageSource messageSource;
 
 
+    public List<OperationDto> getOperationsByCriteria(Long ribCompte, String typeOperation) {
+
+        if (ribCompte != null && typeOperation != null) {
+
+            String msgError = messageSource.getMessage("cretiria.message1",
+                    new Object[]{}, Locale.getDefault());
+            throw new CustomerException(msgError);
+
+        } else if (ribCompte != null) {
+
+            return getOperationsByRibCompte(ribCompte);
+        } else if (typeOperation != null) {
+
+            return getOperationsByTypeOperation(typeOperation);
+        } else {
+
+            String msgError = messageSource.getMessage("cretiria.message2",
+                    new Object[]{}, Locale.getDefault());
+            throw new CustomerException(msgError);
+
+        }
+    }
+
+    public List<OperationDto> getAllOperations() {
+
+        List<Operation> operations = operationRepository.findAll();
+
+        if (operations == null) {
+            String msgError = messageSource.getMessage("operation.not.found.message",
+                    new Object[]{}, Locale.getDefault());
+            throw new CustomerException(msgError);
+        }
+
+        List<OperationDto> operationDtos = new ArrayList<>();
+        for (Operation operation : operations) {
+            OperationDto operationDto;
+
+            if (operation instanceof Virement) {
+                operationDto = new VirementDto();
+                Virement virement = (Virement) operation;
+                ((VirementDto) operationDto).setRibCompteDestinataire(virement.getRibCompteDestinataire());
+//                ((VirementDto) operationDto).setMotif(virement.getMotif());
+            } else if (operation instanceof Depot) {
+                operationDto = new DepotDto();
+                Depot depot = (Depot) operation;
+                ((DepotDto) operationDto).setSourceDepot(depot.getSourceDepot());
+//                ((DepotDto) operationDto).setDateDepot(depot.getDateDepot());
+            } else {
+                operationDto = new OperationDto();
+            }
+
+            BeanUtils.copyProperties(operation, operationDto, "compte");
+            operationDto.setIdCompte(operation.getCompte().getIdCompte());
+            operationDto.setRibCompte(operation.getCompte().getRibCompte());
+            operationDtos.add(operationDto);
+        }
+
+        return operationDtos;
+    }
+
+
     @Override
     public List<OperationDto> getOperationsByRibCompte(Long ribCompte) {
 
@@ -151,7 +212,6 @@ public class OperationServiceImpl implements OperationService {
         }
     }
 
-    // Version 2 to creat OpertionDto
     @Override
     public OperationDto createOperation(OperationDto operationDto) {
 
@@ -195,70 +255,6 @@ public class OperationServiceImpl implements OperationService {
     }
 
 
-    public List<VirementDto> getAllVirements() {
-        List<Operation> operations = operationRepository.findByTypeOperation("virement");
-
-        if (operations == null || operations.isEmpty()) {
-            String msgError = messageSource.getMessage("virement.not.found.message",
-                    new Object[]{}, Locale.getDefault());
-            throw new CustomerException(msgError);
-        }
-
-        List<VirementDto> virementDtos = new ArrayList<>();
-        for (Operation operation : operations) {
-            VirementDto virementDto = new VirementDto();
-            virementDto.setIdOperation(operation.getIdOperation());
-            virementDto.setMontant(operation.getMontant());
-            virementDto.setDescription(operation.getDescription());
-            virementDto.setDateOperation(operation.getDateOperation());
-            virementDto.setSensOperation(operation.getSensOperation());
-            virementDto.setTypeOperation(operation.getTypeOperation());
-            virementDto.setIdCompte(operation.getCompte().getIdCompte());
-            virementDto.setRibCompte(operation.getCompte().getRibCompte());
-            virementDto.setRibCompteDestinataire(operation.getCompte().getIdCompte());
-            virementDto.setRibCompteDestinataire(operation.getCompte().getRibCompte());
-            virementDtos.add(virementDto);
-        }
-        return virementDtos;
-    }
-
-
-    public List<OperationDto> getAllOperations() {
-
-        List<Operation> operations = operationRepository.findAll();
-
-        if (operations == null) {
-            String msgError = messageSource.getMessage("operation.not.found.message",
-                    new Object[]{}, Locale.getDefault());
-            throw new CustomerException(msgError);
-        }
-
-        List<OperationDto> operationDtos = new ArrayList<>();
-        for (Operation operation : operations) {
-            OperationDto operationDto;
-
-            if (operation instanceof Virement) {
-                operationDto = new VirementDto();
-                Virement virement = (Virement) operation;
-                ((VirementDto) operationDto).setRibCompteDestinataire(virement.getRibCompteDestinataire());
-//                ((VirementDto) operationDto).setMotif(virement.getMotif());
-            } else if (operation instanceof Depot) {
-                operationDto = new DepotDto();
-                Depot depot = (Depot) operation;
-                ((DepotDto) operationDto).setSourceDepot(depot.getSourceDepot());
-//                ((DepotDto) operationDto).setDateDepot(depot.getDateDepot());
-            } else {
-                operationDto = new OperationDto();
-            }
-
-            BeanUtils.copyProperties(operation, operationDto, "compte");
-            operationDto.setIdCompte(operation.getCompte().getIdCompte());
-            operationDto.setRibCompte(operation.getCompte().getRibCompte());
-            operationDtos.add(operationDto);
-        }
-
-        return operationDtos;
-    }
 
 
 
