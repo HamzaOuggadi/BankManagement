@@ -9,4 +9,5 @@ import org.springframework.stereotype.Repository;
 
 public interface GestionnaireRepository extends JpaRepository<Gestionnaire, Long> {
 
+    Gestionnaire findByNumGestionnaire(String numGestionnaire);
 }
