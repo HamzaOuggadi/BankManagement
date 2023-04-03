@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -152,16 +153,16 @@ public class CompteServiceImpl implements CompteService {
      * @throws CompteException
      */
     @Override
-    public void createCompte(CompteDto compteDto, String numClient, Long idGestionnaire) throws CompteException {
+    public void createCompte(CompteDto compteDto, String numClient, String numGestionnaire) throws CompteException {
         Random random = new Random();
         try {
             compteDto.setRibCompte(random.nextLong() & Long.MAX_VALUE);
-            compteDto.setGestionnaire(gestionnaireRepository.findById(idGestionnaire).orElseThrow(()-> new GestionnaireException("Gestionnaire Not Found")));
+            compteDto.setGestionnaire(gestionnaireRepository.findByNumGestionnaire(numGestionnaire));
             System.out.println("**************** RIB" + compteDto.getRibCompte().toString());
             Compte compte = compteMapper.compteDtoToCompte(compteDto);
             Tier tier = tierRepository.findByNumClient(numClient);
             compte.setTier(tier);
-            compte.setDateCreation(new Date());
+            compte.setDateCreation(LocalDate.now());
             compteRepository.save(compte);
         } catch (Exception e) {
             throw new CompteException(
