@@ -1,7 +1,9 @@
 package ma.atos.ma.atos.bankmanagement.web;
+import ma.atos.ma.atos.bankmanagement.dtos.CompteDto;
 import ma.atos.ma.atos.bankmanagement.dtos.RestrictionDto;
 import ma.atos.ma.atos.bankmanagement.dtos.responses.GenericResponse;
 import ma.atos.ma.atos.bankmanagement.entities.Restriction;
+import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
 import ma.atos.ma.atos.bankmanagement.exceptions.RestrictionException;
 import ma.atos.ma.atos.bankmanagement.repositories.RestrictionRepository;
 import ma.atos.ma.atos.bankmanagement.services.impl.RestrictionServiceImpl;
@@ -42,12 +44,12 @@ public class RestrictionController {
 
     @PostMapping("/create")
     @CrossOrigin("*")
-    public void createRestriction(@RequestBody RestrictionDto restrictionDto){
-        restrictionService.createRestriction(restrictionDto);
+    public void createRestriction(@RequestBody RestrictionDto restrictionDto, Long idClient){
+        restrictionService.createRestriction(restrictionDto, idClient);
     }
 
 
-    @GetMapping("/deleteById/{idRestriction}")
+    @DeleteMapping("/deleteById/{idRestriction}")
     @CrossOrigin("*")
     public ResponseEntity<GenericResponse> deleteRestriction(@PathVariable Long idRestriction) throws RestrictionException{
         restrictionService.deleteRestriction(idRestriction);
@@ -55,5 +57,11 @@ public class RestrictionController {
         // Use message Source
         response.setDescription(messageSource.getMessage("restriction.deleted.success",new Object[]{}, Locale.getDefault()));
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/restrictionByTier/{idClient}")
+    @CrossOrigin("*")
+    public ResponseEntity<List<RestrictionDto>> getRestrictionByTier(@PathVariable Long idClient) throws RestrictionException {
+        return ResponseEntity.ok(restrictionService.getRestrictionByTier(idClient));
     }
 }

@@ -1,6 +1,8 @@
 package ma.atos.ma.atos.bankmanagement.entities;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity
@@ -11,7 +13,9 @@ public class Restriction {
     private Long idRestriction;
     private String etat;
 
-//    @ManyToOne
-//    private Tier tier;
+   @ManyToOne
+   @JsonIgnore
+   private Tier tier;
+
 
 }
