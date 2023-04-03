@@ -12,6 +12,6 @@ public interface CompteService {
     CompteDto getCompte(Long ribCompte) throws CompteException;
     List<CompteDto> getCompteByTier(String numClient) throws CompteException, TierNotFoundExeption;
     List<CompteDto> getCompteByGestionnaire(Long idGestionnaire) throws CompteException;
-    void createCompte(CompteDto compteDto, String numClient, Long idGestionnaire) throws CompteException;
+    void createCompte(CompteDto compteDto, String numClient, String numGestionnaire) throws CompteException;
     void deleteCompte(Long ribCompte) throws CompteException;
 }

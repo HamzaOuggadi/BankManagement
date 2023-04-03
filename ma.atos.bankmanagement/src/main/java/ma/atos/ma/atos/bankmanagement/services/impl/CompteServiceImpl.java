@@ -7,9 +7,11 @@ import ma.atos.ma.atos.bankmanagement.entities.Compte;
 import ma.atos.ma.atos.bankmanagement.entities.Tier;
 import ma.atos.ma.atos.bankmanagement.enums.ApiStatusCode;
 import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
+import ma.atos.ma.atos.bankmanagement.exceptions.GestionnaireException;
 import ma.atos.ma.atos.bankmanagement.exceptions.TierNotFoundExeption;
 import ma.atos.ma.atos.bankmanagement.mappers.CompteMapper;
 import ma.atos.ma.atos.bankmanagement.repositories.CompteRepository;
+import ma.atos.ma.atos.bankmanagement.repositories.GestionnaireRepository;
 import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
 import ma.atos.ma.atos.bankmanagement.services.CompteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.client.RestTemplate;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Service
@@ -28,6 +31,7 @@ import java.util.*;
 public class CompteServiceImpl implements CompteService {
     @Autowired CompteRepository compteRepository;
     @Autowired TierRepository tierRepository;
+    @Autowired GestionnaireRepository gestionnaireRepository;
 
     @Autowired CompteMapper compteMapper;
 
@@ -149,15 +153,16 @@ public class CompteServiceImpl implements CompteService {
      * @throws CompteException
      */
     @Override
-    public void createCompte(CompteDto compteDto, String numClient, Long idGestionnaire) throws CompteException {
+    public void createCompte(CompteDto compteDto, String numClient, String numGestionnaire) throws CompteException {
         Random random = new Random();
         try {
             compteDto.setRibCompte(random.nextLong() & Long.MAX_VALUE);
+            compteDto.setGestionnaire(gestionnaireRepository.findByNumGestionnaire(numGestionnaire));
             System.out.println("**************** RIB" + compteDto.getRibCompte().toString());
             Compte compte = compteMapper.compteDtoToCompte(compteDto);
             Tier tier = tierRepository.findByNumClient(numClient);
             compte.setTier(tier);
-            compte.setDateCreation(new Date());
+            compte.setDateCreation(LocalDate.now());
             compteRepository.save(compte);
         } catch (Exception e) {
             throw new CompteException(

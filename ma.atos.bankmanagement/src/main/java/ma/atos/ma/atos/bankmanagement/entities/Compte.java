@@ -1,12 +1,14 @@
 package ma.atos.ma.atos.bankmanagement.entities;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import ma.atos.ma.atos.bankmanagement.enums.TypeCompte;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
-// POJO
+
 @Data
 @Entity
 @Table(name = "Compte", uniqueConstraints =
@@ -18,7 +20,8 @@ public class Compte {
     private Long ribCompte;
     private TypeCompte typeCompte;
     private double balance;
-    private Date dateCreation;
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate dateCreation;
     private String devise;
     @ManyToOne
     private Tier tier;

@@ -24,6 +24,7 @@ import org.springframework.context.annotation.Bean;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -85,7 +86,7 @@ public class Application {
 				log.info("itération : " + i + "rib : " + compteDto.getRibCompte());
 				compteDto.setBalance(Math.round((Math.random()*100000)*100.0)/100.0);
 				compteDto.setDevise("MAD");
-				compteDto.setDateCreation(new Date());
+				compteDto.setDateCreation(LocalDate.now());
 				compteDto.setTypeCompte(TypeCompte.COMPTE_COURANT);
 //			compteService.createCompte(compteDto);
 				Compte compte = compteMapper.compteDtoToCompte(compteDto);
