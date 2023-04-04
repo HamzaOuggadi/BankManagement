@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface RestrictionRepository extends JpaRepository<Restriction, Long> {
 
-    List<Restriction> findRestrictionsByTier(Long idClient);
+    List<Restriction> findRestrictionsByTier_IdClient(Long idClient);
 
 }

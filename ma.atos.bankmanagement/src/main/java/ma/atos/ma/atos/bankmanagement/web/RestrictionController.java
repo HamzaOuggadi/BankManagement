@@ -6,6 +6,7 @@ import ma.atos.ma.atos.bankmanagement.entities.Restriction;
 import ma.atos.ma.atos.bankmanagement.exceptions.CompteException;
 import ma.atos.ma.atos.bankmanagement.exceptions.RestrictionException;
 import ma.atos.ma.atos.bankmanagement.repositories.RestrictionRepository;
+import ma.atos.ma.atos.bankmanagement.repositories.TierRepository;
 import ma.atos.ma.atos.bankmanagement.services.impl.RestrictionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
@@ -25,6 +26,7 @@ public class RestrictionController {
     RestrictionServiceImpl restrictionService;
     @Autowired
     MessageSource messageSource;
+
 
 
 

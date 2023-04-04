@@ -47,9 +47,10 @@ RestrictionServiceImpl implements RestrictionService {
         return restrictionDtos;
     }
 
+
     @Override
-    public List<RestrictionDto> getRestrictionByTier(Long idClient) throws RestrictionException {
-        List<Restriction> restrictions = restrictionRepo.findRestrictionsByTier(idClient);
+    public List<RestrictionDto> getRestrictionByTier(Long idClient) throws RestrictionException{
+        List<Restriction> restrictions = restrictionRepo.findRestrictionsByTier_IdClient(idClient);
         if (!CollectionUtils.isEmpty(restrictions)) {
             List<RestrictionDto> restrictionDtos = new ArrayList<>();
             restrictions.stream().forEach(restriction -> {
@@ -59,7 +60,8 @@ RestrictionServiceImpl implements RestrictionService {
             });
             return restrictionDtos;
         } else {
-            throw new RestrictionException(messageSource.getMessage("Restriction.not.found.message", new Object[]{}, Locale.getDefault()), HttpStatus.OK);
+            throw new RestrictionException( messageSource.getMessage("Restriction.not.found.message", new Object[]{}, Locale.getDefault()),
+                    HttpStatus.NOT_FOUND);
         }
     }
 
